@@ -1,2 +1,2 @@
-# globalclassroom_CLEAN
+# globalclassroom4_clean
 Clean copy of GC4
