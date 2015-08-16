@@ -1,0 +1,68 @@
+policySuccess:
+  metas:
+    title:  Global Classroom Acceptable Use Policy
+
+  stylesheets: [main.css]
+
+  has_layout: true
+  layout:     layout_policy
+
+indexSuccess:
+  has_layout: true
+  layout:     layout_index
+  metas:
+    google-site-verification: ULJY0wQ7O62c-6sye9wOLNurIAYsbnXk6v6vyKqpJpM
+  
+aboutSuccess:
+  has_layout: true
+  layout:     layout_index
+
+loginSuccess:
+  has_layout: true
+  layout:     layout_index
+  
+refundsSuccess:
+  has_layout: true
+  layout:     layout_index
+
+registrationSuccess:
+  has_layout: true
+  layout:     layout_index
+
+creditsSuccess:
+  has_layout: true
+  layout:     layout_index
+
+requirementsSuccess:
+  has_layout: true
+  layout:     layout_index
+
+searchSuccess:
+  has_layout: true
+  layout:     layout_index
+
+notfoundSuccess:
+  has_layout: true
+  layout:     layout_index
+
+supportSuccess:
+  has_layout: true
+  layout:     layout_index
+
+classicAlertSuccess:
+  has_layout: true
+  layout:     layout_index
+  
+error404Success:
+  has_layout: true
+  layout:     layout_index
+
+all:
+  metas:
+    title:  Global Classroom
+  
+default:
+  stylesheets: [-main.css]
+
+  has_layout: true
+  layout:     layout_dynamic

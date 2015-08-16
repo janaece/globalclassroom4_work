@@ -1,0 +1,35 @@
+*** RUN THESE COMMANDS FROM THE ADMIN INTERFACE IN MOODLE ***
+(ask Ron if you are unfamiliar with this)
+
+
+create table <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status
+(
+id bigserial NOT NULL,
+short_name character varying(25),
+description text,
+constraint mhr_gcr_availability_status_id_pk primary key (id)
+)
+with (
+OIDS=FALSE
+);
+ALTER TABLE <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status OWNER TO gc4<<GC_SCHEMA_NAME>>admin;
+
+create table <<GC_SCHEMA_NAME>>.mhr_gcr_user_availability_status
+(
+user_id integer NOT NULL,
+status_id integer NOT NULL,
+constraint mhr_gcr_user_availability_status_id_pk primary key (user_id),
+CONSTRAINT mhr_gcr_user_availability_status_sta_fk FOREIGN KEY (status_id)
+      REFERENCES <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+with (
+OIDS=FALSE
+);
+ALTER TABLE <<GC_SCHEMA_NAME>>.mhr_gcr_user_availability_status OWNER TO gc4<<GC_SCHEMA_NAME>>admin;
+
+insert into <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status values(DEFAULT, 'away', 'A status of "away" indicates being logged in, but not currently available.');
+insert into <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status values(DEFAULT, 'invisible', 'A status of "invisible" prevents users on your friends list from seeing that you are logged in');
+insert into <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status values(DEFAULT, 'busy', 'A status of "busy" indicates being available, but possibly too busy to respond to messages or conference requests.');
+insert into <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status values(DEFAULT, 'available', 'A status of "available" indicates being logged in, and available for conference requests.');
+insert into <<GC_SCHEMA_NAME>>.mhr_gcr_availability_status values(DEFAULT, 'offline', 'A status of "offline" indicates that a user is not logged in.');

@@ -1,0 +1,1 @@
+delete from <all moodles>.mdl_role_allow_assign where allowassign = 1;

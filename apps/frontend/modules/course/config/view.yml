@@ -1,0 +1,4 @@
+getHTMLCoursesSuccess:
+  has_layout: false
+getHTMLCourseSummary:
+  has_layout: false

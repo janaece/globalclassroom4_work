@@ -1,0 +1,459 @@
+a
+{
+  text-decoration: none;
+}
+body
+{
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 12px;
+}
+
+div
+{
+}
+
+hr
+{
+  color: #DDD;
+}
+
+button, .button
+{
+  cursor: pointer;
+  border-width: 1px;
+  border-color: #A5ACB2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: url('../images/btn-bkgd.gif') left top repeat-x;
+  font-size: 1em;
+line-height: 1.3333em;
+border-width: 1px;
+border-style: solid;
+border-color: #7d99ae #003c74 #003c74 #7d99ae;
+  padding: 2px 3px;
+}
+
+/** hover for buttons **/
+button:hover, .button:hover
+{
+	background: #FFF url(../images/btn-bkgd-hover.gif) repeat-x left top;
+	text-decoration: none;
+}
+/** Depress for buttons **/
+button:active, .button:active 
+{
+	border-color: #003c74 #7d99ae #7d99ae #003c74;
+	background: #FFF url(../images/btn-bkgd-hover.gif) repeat-x left top;
+}
+input
+{
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 2px 3px;
+}
+
+/** separating header from content **/
+
+div#header
+{
+  margin-bottom: 10px;
+}
+
+.center
+{
+  margin: auto;
+}
+
+.text-center
+{
+  text-align: center;
+}
+
+.content
+{
+  width: 100%;
+}
+
+.footer
+{
+  text-align: right;
+}
+
+div.gc_small_form
+{
+  width: 450px;
+  background-color: #FFF;
+  padding: 10px 20px;
+  margin: 50px auto;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+}
+
+#usf_submit
+{
+  border-width: 1px;
+  border-color: #A5ACB2;
+  margin-left: 4px !important;
+}
+
+/** eSchool Creation Form **/
+
+table.content
+{
+  margin: auto;
+  width: 95%;
+}
+
+table.content div#newEschoolInfo
+{
+  width: 60%;
+}
+
+table#eschool_form td
+{
+  vertical-align: top;
+  padding: 4px;
+}
+
+table#eschool_form td.form_text
+{
+  width: 60%;
+  padding-right: 20px;
+}
+
+table#eschool_form td.form_section_label
+{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+table#eschool_form td.symfonyFormLabel
+{
+  text-align: right;
+  width: 15%;
+}
+
+table#eschool_form select#country
+{
+  width: 185px;
+}
+
+table#eschool_form ul.error_list
+{
+  margin: 0;
+  padding-left: 10px;
+}
+
+table#eschool_form a#lightboxlinkeschool input
+{
+  width: 185px;
+}
+
+/** eSchool Edit Form **/
+
+table.content div#editEschoolInfo
+{
+  width: 60%;
+  padding-bottom: 20px;
+}
+
+.cautiontext
+{
+  color: #FF0000;
+  font-weight: bold;	
+}
+
+table#eschool_form input.eschoolSubmit
+{
+  width: 185px;	
+}
+
+/** eSchool Edit Contact Form **/
+
+table.content div#editEschoolContactInfo
+{
+  width: 60%;
+  padding-bottom: 20px;
+}
+
+/** eSchool Course Purchase Form **/
+
+table#purchase
+{
+  margin: auto;
+  background-color: #FFF;
+  padding: 5px 10px;
+  width: 800px;
+  min-width: 800px;
+}
+
+table#purchase td#form
+{
+  width: 60%;	
+}
+
+table#purchase td#banner
+{
+  height: 100px;
+}
+
+table#purchase td#banner div
+{
+  padding: 35px 50px 0px 25px;	
+}
+
+table#purchase	h1
+{
+  font-size: 14px;
+}
+
+td#form th
+{
+  text-align: right;
+}
+
+table#purchase td#footer
+{
+  padding-top: 10px;
+  font-size: 10px;
+  text-align: center;	
+}
+
+form#purchaseForm select#country
+{
+  width: 187px;	
+}
+
+.symfonyFormError
+{
+  color:red;
+}
+
+/** eSchool Course Purchase Receipt Page **/
+
+#receiptcontainer
+{
+  width: 650px;
+  background-color: #FFF;
+  padding: 10px 20px;
+  margin: 50px auto;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+}
+
+/** eSchool Activation/Payment Options Page **/
+
+div#eschoolactivation div#powered
+{
+  height: 20px;
+  margin-top: 10px;
+  background: url('/images/poweredbyGC.png') no-repeat center;
+}
+
+/** eClassroom Payment Options Page **/
+
+div#classroompaymentoptions div#powered
+{
+  height: 20px;
+  margin-top: 10px;
+  background: url('/images/poweredbyGC.png') no-repeat center;
+}
+
+/** eSchool Accounting Pages **/
+#a_maindiv
+{
+  width:52em;
+  margin:0 auto;
+  padding:1em;
+  overflow:auto;
+}
+
+.a_rounded_block
+{
+  background-color: #FFF;
+  border: solid 1px #DDD;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+}
+
+.a_table
+{
+  width:50em;
+}
+
+.a_moneycol
+{
+  width:5em;
+}
+
+.a_usercol
+{
+  width:9em;
+}
+
+.a_float_rt
+{
+  float:right;
+}
+
+.a_float_lt
+{
+  float:left;
+}
+
+.a_netrow
+{
+  border-top:1px solid #000;
+}
+
+.a_bottomline
+{
+  border-bottom:3px double #000;
+}
+
+.a_inv
+{
+  display:none;
+}
+
+.a_text_left
+{
+  text-align:left;
+}
+
+.a_width9
+{
+  width:0.9em;
+}
+
+.a_calendar tr td input
+{
+  display:block;
+  width:2em;
+}
+
+/* eschooladmin/authentication form */
+
+#authenticationSettingsForm
+{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#authenticationSettingsForm .authAdminLabel
+{
+  width: 30%;
+}
+
+/* site policy layout */
+
+div#user_policy
+{
+  width: 49%;
+  float: right;
+}
+
+/* customization styles 
+
+div#customize_dashboard
+{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  max-width: 786px;
+}
+
+div#customize_box_languages
+{
+  padding: 10px;
+  max-width: 350px;
+  height: 290px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #AAA;	
+}
+
+div#customize_box_ecommerce
+{
+  padding: 10px;
+  max-width: 350px;
+  height: 290px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+}
+
+div#customize_box_banner
+{
+  padding: 10px;
+  max-width: 350px;
+  height: 220px;	
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+
+}
+
+/* colorpicker styles 
+
+div#customize_box_color
+{
+  padding: 10px;
+  max-width: 350px;
+  height: 220px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #AAA;
+}
+
+div.colorpicker
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#color_picker_holder
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#color_picker_holder div
+{
+  margin-left: auto;
+  margin-right: auto;
+  background: url(../../images/colorpicker/select.png) repeat scroll center center transparent;
+  height: 30px;
+  width: 30px;
+}
+
+div#set_color
+{
+  text-align: center;
+}
+
+div.preference_selection
+{
+  text-align: center;
+}*/

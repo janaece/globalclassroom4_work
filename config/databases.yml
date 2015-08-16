@@ -1,0 +1,7 @@
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'pgsql:host=10.0.39.93;dbname=globalclassroom4'
+      username: gc4_admin
+      password: Th1F2n3lC45ntd6wn$GC

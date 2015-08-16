@@ -1,0 +1,6 @@
+update <all moodles>.mdl_config_plugins set "value" = 'fontselect,fontsizeselect,formatselect,|,undo,redo,|,search,replace,|,fullscreen\\r
+bold,italic,underline,strikethrough,sub,sup,|,justifyleft,justifycenter,justifyright,|,cleanup,removeformat,pastetext,pasteword,|,forecolor,backcolor,|,ltr,rtl\\r
+bullist,numlist,outdent,indent,|,link,unlink,|,image,media,nonbreaking,charmap,table,|,code'
+where plugin = 'editor_tinymce' and "name" = 'customtoolbar'
+
+insert into <all moodles>.mdl_config_plugins values(DEFAULT, 'editor_tinymce', 'disabledsubplugins', 'moodlemedia');

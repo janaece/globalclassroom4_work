@@ -1,0 +1,1 @@
+alter table gcr_chat_session alter column room_id type character varying(255);

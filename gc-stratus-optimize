@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PROJECT_DIR_CLEAN='/var/www/globalclassroom4_clean';
+JAVASCRIPT_OPT_DIRS=( 'modules' 'overwrites' 'web/js' 'web/lib' 'web/stratus' );
+
+# Optimize Stylesheets
+resources=( `find $PROJECT_DIR_CLEAN -name "*.css"` );
+
+for resource in "${resources[@]}"
+do
+	yui-compress $resource;
+done
+
+for dir in "${JAVASCRIPT_OPT_DIRS[@]}"
+do
+	resources=( `find $PROJECT_DIR_CLEAN/$dir -name "*.js"` );
+
+	for resource in "${resources[@]}"
+	do
+		yui-compress $resource;
+	done
+done

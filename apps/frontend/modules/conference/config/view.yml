@@ -1,0 +1,6 @@
+viewSuccess:
+  has_layout: true
+  layout:     layout_gc_chat
+whiteboardSuccess:
+  has_layout: true
+  layout:     layout_gc_chat

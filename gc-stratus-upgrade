@@ -1,0 +1,123 @@
+#!/bin/bash
+
+# Versions
+MAHARA_VERSION='1.10_STABLE';
+MOODLE_VERSION='MOODLE_28_STABLE';
+
+# Directories
+PROJECTS_DIR='/opt/src';
+TEMP_DIR='/tmp/globalclassroom4_build';
+CLEAN_DIR='/var/www/globalclassroom4_clean';
+declare -a MOODLE_BLOCKS=( 'course_menu' );
+declare -a MOODLE_MODS=( 'certificate' 'game' 'questionnaire' );
+declare -a MOODLE_CACHESTORES=( 'apc' 'xcache' );
+
+if [ $# -lt 1 ]
+then
+        echo "Usage : $0 update/compare/merge" ;
+        exit
+fi
+
+case "$1" in
+
+update)
+# Initialize temporary directories
+rm -rf $TEMP_DIR ; mkdir $TEMP_DIR ;
+
+# Update Mahara and Moodle
+cd $PROJECTS_DIR/mahara/ ; git checkout $MAHARA_VERSION ; git pull ;
+rsync -r --exclude=.git/ ./htdocs/* $TEMP_DIR/portal/ ;
+cd $PROJECTS_DIR/moodle/ ; git checkout $MOODLE_VERSION ; git pull ;
+rsync -r --exclude=.git/ ./* $TEMP_DIR/stratus/ ;
+
+# Update plugins
+for i in "${MOODLE_BLOCKS[@]}"
+do
+	rm -rf $TEMP_DIR/$i/ ;
+	cd $PROJECTS_DIR/moodle-block_$i/ ; git checkout $MOODLE_VERSION ; git pull ;
+	cd $( dirname `find . -name version.php` ); rsync -r --exclude=.git/ ./* $TEMP_DIR/$i/ ;
+done
+
+for i in "${MOODLE_MODS[@]}"
+do
+	rm -rf $TEMP_DIR/$i/ ;
+	cd $PROJECTS_DIR/moodle-mod_$i/ ; git checkout $MOODLE_VERSION ; git pull ;
+	cd $( dirname `find . -name version.php` ); rsync -r --exclude=.git/ ./* $TEMP_DIR/$i/ ;
+done
+
+for i in "${MOODLE_CACHESTORES[@]}"
+do
+        rm -rf $TEMP_DIR/$i/ ;
+        cd $PROJECTS_DIR/moodle-cachestore_$i/ ; git checkout $MOODLE_VERSION ; git pull ;
+	cd $( dirname `find . -name version.php` ); rsync -r --exclude=.git/ ./* $TEMP_DIR/$i/ ;
+done
+
+# Optimize static resources
+find $TEMP_DIR \( -name "*.jpg" -print0 , -name "*.jpeg" -print0 \) | xargs -0 -n 1 -P 2 jpegoptim --strip-all ;
+find $TEMP_DIR -name "*.png" -print0 | xargs -0 -n 1 -P 2 optipng -o7 -i0 -fix ;
+find $TEMP_DIR -name "*.gif" -print0 | xargs -0 -n 1 -P 2 gifsicle -O3 -b ;
+;;
+
+compare)
+# Pull latest project code
+cd $CLEAN_DIR ;
+git checkout workstation ; git pull ;
+cd $TEMP_DIR ;
+
+# Compare new build with clean code
+echo "MAHARA DIFFERENCES:" ;
+diff -r -q portal/ $CLEAN_DIR/web/portal/ ;
+echo "--END MAHARA DIFFERENCES--" ;
+
+echo "MOODLE DIFFERENCES:" ;
+diff -r -q stratus/ $CLEAN_DIR/web/stratus/ ;
+echo "--END MOODLE DIFFERENCES--" ;
+
+for i in "${MOODLE_BLOCKS[@]}"
+do
+	echo "$i DIFFERENCES:" ;
+	diff -r -q $i $CLEAN_DIR/modules/stratus/blocks/$i/ ;
+	echo "--END $i DIFFERENCES--" ;
+done
+
+for i in "${MOODLE_MODS[@]}"
+do
+	echo "$i DIFFERENCES:" ;
+	diff -r -q $i $CLEAN_DIR/modules/stratus/mod/$i/ ;
+	echo "--END $i DIFFERENCES--" ;
+done
+
+for i in "${MOODLE_CACHESTORES[@]}"
+do
+	echo "$i DIFFERENCES:" ;
+	diff -r -q $i $CLEAN_DIR/modules/stratus/cache/stores/$i/ ;
+	echo "--END $i DIFFERENCES--" ;
+done
+;;
+
+merge)
+# Merge Mahara and Moodle code into Git
+rsync -r --delete-before $TEMP_DIR/portal $CLEAN_DIR/web/ ;
+rsync -r --delete-before $TEMP_DIR/stratus $CLEAN_DIR/web/ ;
+
+# Merge Moodle blocks into Git
+for i in "${MOODLE_BLOCKS[@]}"
+do
+	rsync -r --delete-before $TEMP_DIR/$i $CLEAN_DIR/modules/stratus/blocks/ ;
+done
+
+# Merge Moodle mods into Git
+for i in "${MOODLE_MODS[@]}"
+do
+	rsync -r --delete-before $TEMP_DIR/$i $CLEAN_DIR/modules/stratus/mod/ ;
+done
+
+# Merge Moodle cachestores into Git
+for i in "${MOODLE_CACHESTORES[@]}"
+do
+	rsync -r --delete-before $TEMP_DIR/$i $CLEAN_DIR/modules/stratus/cache/stores/ ;
+done
+;;
+
+*) echo "Usage : $0 update/compare/merge" ;;
+esac

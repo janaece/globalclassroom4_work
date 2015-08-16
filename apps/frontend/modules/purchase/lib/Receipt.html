@@ -1,0 +1,68 @@
+<div id="gcReceipt">
+    <table>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                <?php print date('m/d/Y', $this->getPurchase()->getTransTime());?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Payee:
+            </td>
+            <td>
+                <?php print $this->getPurchaseUserFullName();?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Recipient:
+            </td>
+            <td>
+                Global Classroom Inc.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Purchase ID:
+            </td>
+            <td>
+                <?php print $this->getPurchase()->getId();?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <?php print $this->getProductNameDescription();?>
+            </td>
+            <td>
+                <?php print $this->getProductName();?>
+            </td>
+        </tr>
+        <?php
+        if ($this->getPurchase()->getPurchaseType() != 'eschool')
+        { ?>
+        <tr>
+            <td>
+                Catalog:
+            </td>
+            <td>
+                <?php print $this->my_app->getFullName(); ?>
+            </td>
+        </tr>
+        <?php
+        } ?>
+        <tr>
+            <td>
+                Cost:
+            </td>
+            <td>
+                <?php print $this->getProductPrice(); ?>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <input type="button" onClick="window.print()" value="Print This Page" />
+</div>
+

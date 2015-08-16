@@ -1,0 +1,101 @@
+/* 
+    Document   : course_view
+    Created on : Nov 6, 2012, 5:18:19 PM
+    Author     : ron
+    Description:
+        Purpose of the stylesheet follows.
+*/
+#gc_course_list {padding: 0 15px}
+#gc_course_list_title{float:left}
+#gc_my_course_toggle{float:right}
+#gc_course_visibility_selector {visibility:hidden;margin:5px;float:right}
+#gc_course_catalogs,#gc_course_categories{width:250px}
+#gc_course_list_search_string{width:150px}
+.gc_course_list_filter{float:left;margin: 5px}
+.gc_course_list_item_icon { width: 120px; height: 120px; overflow: hidden; margin:5px auto}
+.gc_user_profile_img {height:16px;width:16px}
+.gc_course_list_item_container {height:300px;background-color:#ffffff;margin-bottom:30px}
+.gc_course_list_item_container_element {padding:0px;}
+.gc_course_list_item_cost{float:right}
+.gc_course_list_item_description{overflow-y:auto;max-height:100px}
+
+.gc_course_list_item_title 
+{
+    font-weight:bold;
+    background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#DDD));
+    background: -moz-linear-gradient(center top , #EEEEEE, #DDDDDD) repeat scroll 0 0 transparent;
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#eeeeee', endColorstr='#dddddd'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#eeeeee', endColorstr='#dddddd')"; /* IE8 */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    height: 40px;
+    margin: 0;
+    padding: 4px 5px 0;
+}
+.gc_course_list_item {margin-top:15px;margin-bottom:15px;}
+#gc_course_categories{display:none}
+#gc_course_list_container{visibility:hidden;margin: auto}
+#content{min-height: 720px}
+#gc_course_list_container 
+{
+  background: #FFF;
+  padding: 5px;
+  margin-bottom: 40px;
+  clear: both;
+ 
+}
+#gc_course_list_title h1
+{
+    font-size: 2em;
+    line-height: 1.2em;
+}
+.gc_course_list_item_body {
+  border-right: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  border-bottom: 0px solid #DDDDDD;
+  border-top: 0px solid #DDDDDD;
+  height: 245px;
+  padding: 5px;
+}
+
+.gc_course_list_item_footer {
+  border-bottom: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  border-top: 0px solid #DDDDDD;
+  background-color: #F9F9F9;
+  height: 15px;
+  padding: 1px 5px 5px;
+}
+
+.gc_course_list_item h2 {
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.gc_course_list_item_icon img
+{
+    min-height: 120px;
+    min-width: 120px;
+    cursor: pointer;
+}
+.course_list_item_icon
+{
+  display: block;
+  width:120px;
+  height:120px;
+  overflow: hidden;
+  margin:auto;
+}
+
+.rtl .gc_course_list_item {
+  float: right;
+  text-align: right; 
+  direction: rtl;
+}
+
+

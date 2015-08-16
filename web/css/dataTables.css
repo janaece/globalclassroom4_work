@@ -1,0 +1,73 @@
+/* 
+    Document   : dataTables.css
+    Created on : May 9, 2013, 9:38:12 PM
+    Author     : ron
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.dataTables_paginate .ui-button {
+    margin-right: -0.1em !important;
+}
+.paging_full_numbers .ui-button {
+    color: #333333 !important;
+    cursor: pointer;
+    margin: 0;
+    padding: 2px 6px;
+}
+.dataTables_filter {
+    float: right;
+    text-align: right;
+    width: 50%;
+}
+.dataTables_length {
+    float: left;
+    width: 40%;
+}
+.dataTables_wrapper .ui-toolbar {
+    padding: 5px;
+}
+.dataTables_info {
+    float: left;
+    padding-top: 10px;
+    width: 60%;
+}
+.dataTables_paginate {
+    padding-top: 0;
+}
+.dataTables_paginate {
+    float: right;
+    text-align: right;
+}
+.dataTables_paginate {
+    width: auto;
+}
+.paging_full_numbers {
+    width: 350px !important;
+}
+.dataTables_paginate {
+    float: right;
+    padding-top: 10px;
+    text-align: right;
+    width: 44px;
+}
+table.display thead th div.DataTables_sort_wrapper {
+    padding-right: 20px;
+    position: relative;
+}
+table.display thead th div.DataTables_sort_wrapper span {
+    margin-top: -8px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+tr.odd {
+    background-color: #E2E4FF;
+}
+tr.even {
+    background-color: white;
+}
+table.display td {
+    padding: 3px 10px;
+}
+

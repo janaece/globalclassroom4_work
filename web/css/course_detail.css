@@ -1,0 +1,47 @@
+/* 
+    Document   : course_detail.css
+    Created on : Feb 8, 2013, 8:06:43 PM
+    Author     : ron
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#course_detail_right_column 
+{
+    overflow:auto;
+    max-height:75%;
+    width:58%;
+    float:right;
+    margin-right:35px;
+    background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.6);
+    padding: 5px;
+}
+#course_detail_right_column_header {float:left;margin-top:-25px;margin-left:15px;}
+#course_detail_title {float:left;margin-left:15px;line-height:2.25em;max-width:80%}
+#course_detail_container {overflow:hidden;height:100%;min-height:400px;min-width:700px;}
+#course_detail_gotocourse {float:right;margin-right:60px;margin-top:15px}
+#course_detail_left_column {margin-left:35px;float:left;width:30%;overflow-y:auto;overflow-x:hidden}
+#course_detail_summary_edit {margin:-5px 5px}
+#course_instance_select{width:105px}
+.gc_course_list_item_icon { width: 120px; height: 120px; overflow: hidden; margin:5px auto}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+#course_detail_left_column td {
+    vertical-align: baseline;
+}
+#course_detail_icon {
+    cursor: pointer;
+    min-height: 120px;
+    min-width: 120px;
+}

@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+#my_eschools_title { font-size:150%;font-weight:bold }
+div#accountTotals { float:right; padding:5px; border-width:1px; border-style:solid; }
+.ui-widget { font-size: 62.5%; }
+.trialButton { font-size: 62.5%;font-weight:bold; }
+.commissionButton { font-size: 62.5%;font-weight:bold; }
+.ui-dialog label, .ui-dialog input { display:block; }
+.ui-dialog select, .ui-dialog input.text { margin-bottom:12px; width:35%; padding: .4em; }
+.ui-dialog fieldset { padding:0; border:0; margin-top:25px; }
+.ui-dialog { padding: .3em; }
+.validateTips { border: 1px solid transparent; padding: 0.3em; }

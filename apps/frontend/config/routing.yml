@@ -1,0 +1,100 @@
+# default rules
+
+homepage:
+  url: /
+  param: {module: public, action: index}
+
+localized_homepage:
+  url: /:sf_culture
+  requirements: {sf_culture: (?:en|es|fr|de|uk|zh|ja)}
+  param: {module: public, action: index}
+
+# Help Pages
+help:
+  url:   /help
+  param: {module: help, action: index}
+
+help_index:
+  url:   /help/
+  param: {module: help, action: index}
+
+demos:
+  url:   /help/demos
+  param: {module: help, action: demos}
+
+faq:
+  url:   /help/faq
+  param: {module: help, action: faq}
+
+feedback:
+  url:   /help/feedback
+  param: {module: help, action: feedback}
+
+guides:
+  url:   /help/guides
+  param: {module: help, action: guides}
+
+login_help:
+  url:   /help/login
+  param: {module: help, action: login}
+
+registration:
+  url:   /help/registration
+  param: {module: help, action: registration}
+
+requirements:
+  url:   /help/requirements
+  param: {module: help, action: requirements}
+
+tutorials:
+  url:   /help/tutorials
+  param: {module: help, action: tutorials}
+
+# Information Pages
+blog:
+  url:   /blog
+  param: {module: public, action: blog}
+
+credits:
+  url:   /info/credits
+  param: {module: public, action: credits}
+
+policy:
+  url:   /info/policy
+  param: {module: public, action: policy}
+
+refunds:
+  url:   /info/refunds
+  param: {module: public, action: refunds}
+
+terms:
+  url:   /info/terms
+  param: {module: public, action: terms}
+
+requirements:
+  url:   /info/requirements
+  param: {module: public, action: requirements}
+
+migration:
+  url:   /info/migration
+  param: {module: public, action: migration}
+
+notfound:
+  url:   /notfound
+  param: {module: public, action: notfound}
+
+search:
+  url:   /search
+  param: {module: public, action: search}
+
+# Top-Level Routing Rules
+login:
+  url:   /login
+  param: {module: public, action: login}
+
+default_index:
+  url:   /:module
+  param: {action: index}
+
+default:
+  url:   /:module/:action/*

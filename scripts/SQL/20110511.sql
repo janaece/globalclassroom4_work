@@ -1,0 +1,1 @@
+alter table gcr_eschool add column is_public boolean NOT NULL default false;

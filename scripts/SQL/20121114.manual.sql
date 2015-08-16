@@ -1,0 +1,1 @@
+insert into <<GC_SCHEMA_NAME>>.mdl_external_services_functions values(DEFAULT, 1, 'core_course_create_categories');

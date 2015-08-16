@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>
+Leightbox
+</title>
+
+<!-- Meta Tags -->
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/screen.css" media="screen,projection" type="text/css" />
+
+<!-- JavaScript -->
+<script type="text/javascript" src="scripts/prototype.js"></script>
+<script type="text/javascript" src="scripts/lightbox.js"></script>
+
+</head>
+
+<body>
+
+<div id="container">
+
+	<h1>Leightbox</h1>
+
+	<p>
+		I've changed ParticleTree's lightbox functionality to allow
+		the use of inline div's instead of AJAX calls. Very often I find that I want the data
+		in the lightbox to be indexable by search engines and visible to people with screenreaders etc.
+		This adaptation makes that possible. Mind you, i've completely removed the AJAX calls.
+	</p>
+
+	<p>
+		<ul>
+			<li><a href="#lightbox1" rel="lightbox1" class="lbOn">Leightbox 1</a></li>
+		</ul>
+	</p>
+
+</div><!--container-->
+
+<div id="lightbox1" class="leightbox">
+
+	<h1>Creating Your Platform</h1>
+
+	<p>Thank you for creating your Platform with Global Classroom.  Please allow a few minutes while we build your Platform based on the information you have supplied us with.  You will be redirected once your Platform is ready.</p>
+
+	<div id="loader">
+		<img src="loader.gif" />
+	</div>
+</div>
+</body>
+</html>

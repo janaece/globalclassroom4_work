@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Set the project type
+# Options: Workstation, Dev, Live
+PROJECT_TYPE='Live';
+
+# Directories 
+PROJECT_DIR='/var/www/globalclassroom4';
+PROJECT_DIR_OLD=$PROJECT_DIR'_old';
+PROJECT_DIR_NEW=$PROJECT_DIR'_new';
+PROJECT_DIR_CLEAN=$PROJECT_DIR'_clean';
+CURRENT_DIR=`pwd`;
+
+# Check to make sure the user is not in the Project Directory
+if [ $CURRENT_DIR = $PROJECT_DIR ]; then
+   echo "You can't run this command within the /var/www/globalclassroom4 directory";
+   exit 1;
+fi
+
+# Remove old project
+rm -rf $PROJECT_DIR_OLD/ ;
+
+# Update to the latest version
+cd $PROJECT_DIR_CLEAN/;
+git pull;
+
+# Assemble the new project
+rsync -r --exclude=.git/ $PROJECT_DIR_CLEAN/ $PROJECT_DIR_NEW/;
+rsync -r --exclude=.git/ $PROJECT_DIR_CLEAN/modules/stratus/ $PROJECT_DIR_NEW/web/stratus/;
+rsync -r --exclude=.git/ $PROJECT_DIR_CLEAN/overwrites/portal/ $PROJECT_DIR_NEW/web/portal/;
+rsync -r --exclude=.git/ $PROJECT_DIR_CLEAN/overwrites/stratus/ $PROJECT_DIR_NEW/web/stratus/;
+mkdir $PROJECT_DIR_NEW/cache $PROJECT_DIR_NEW/log $PROJECT_DIR_NEW/debug $PROJECT_DIR_NEW/templateDump;
+touch $PROJECT_DIR_NEW/debug/error.log $PROJECT_DIR_NEW/debug/paypal.log $PROJECT_DIR_NEW/debug/sql.log;
+
+# Apply development workstation overwrites, if applicable
+if  [ $PROJECT_TYPE != "Live" ]; then
+    rsync -r --exclude=.git/ $PROJECT_DIR_CLEAN/overwrites/test_environment_overwrites/ $PROJECT_DIR_NEW/;
+    chmod -R --quiet 777 $PROJECT_DIR_NEW/cache $PROJECT_DIR_NEW/debug $PROJECT_DIR_NEW/log $PROJECT_DIR_NEW/templateDump;
+fi
+
+# Apply Dev Server changes, if applicable
+if  [ $PROJECT_TYPE = "Dev" ]; then
+    chmod -R --quiet g+ws $PROJECT_DIR_CLEAN/ $PROJECT_DIR_NEW/ $PROJECT_DIR/;
+    chgrp -R --quiet developers $PROJECT_DIR_CLEAN/ $PROJECT_DIR_NEW/ $PROJECT_DIR/;
+fi
+
+# Apply Live Server changes, if applicable
+if  [ $PROJECT_TYPE = "Live" ]; then
+    cp $PROJECT_DIR/debug/*.log $PROJECT_DIR_NEW/debug/;
+    cp $PROJECT_DIR/log/*.log $PROJECT_DIR_NEW/log/;
+    chmod -R --quiet 770 $PROJECT_DIR_NEW/cache $PROJECT_DIR_NEW/debug $PROJECT_DIR_NEW/log $PROJECT_DIR_NEW/templateDump;
+    chmod -R --quiet 750 $PROJECT_DIR_NEW/config/databases.yml $PROJECT_DIR_NEW/lib/model/gcr_model/gcr.class.php;
+    chgrp -R --quiet www-data $PROJECT_DIR_NEW/cache $PROJECT_DIR_NEW/debug $PROJECT_DIR_NEW/log $PROJECT_DIR_NEW/templateDump $PROJECT_DIR_NEW/config/databases.yml $PROJECT_DIR_NEW/lib/model/gcr_model/gcr.class.php;
+fi
+
+# Replace the old project with the new one
+mv $PROJECT_DIR/ $PROJECT_DIR_OLD/;
+mv $PROJECT_DIR_NEW/ $PROJECT_DIR/;
+
+# Clear Symfony Cache
+$PROJECT_DIR/symfony cc;
+
+echo "Update Complete!"

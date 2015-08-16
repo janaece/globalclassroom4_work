@@ -1,0 +1,670 @@
+body
+{
+	font-family: "Myriad Pro", verdana, arial, sans-serif;
+	font-size: .75em;
+	background: #FFF;
+	color: #000;
+	width: 900px;
+	margin: auto;
+	line-height: 1.15em;
+}
+
+.cufon-loading {
+    visibility: hidden;
+}
+
+#page_title {
+    width: 590px;
+}
+
+.align_center {
+    text-align: center;
+}
+
+.greytext
+{
+	color: #AAA;	
+}
+
+h1	{font-size: 2.3em;}
+h2	{font-size: 1.9em;}
+h3	{font-size: 1.6em;}
+h4	{font-size: 1.3em; margin-bottom: .25em;}
+
+h1, h2, h3, h4
+{
+	font-weight: bold;
+}
+
+small
+{
+	font-size: .85em;	
+}
+
+p
+{
+	line-height: 1.5em;
+	padding-right: 15px;
+	margin-bottom: .25em;
+}
+
+address
+{
+	margin-bottom: 10px;
+}
+
+ul
+{
+	line-height: 1.25em;
+	margin-left: 25px;
+	list-style-type: disc;	
+}
+
+ul.error_list {
+    color: red;
+    list-style-type: none;
+}
+ol
+{
+	line-height: 1.25em;
+	margin-left: 25px;
+	list-style-type: decimal;
+}
+
+ol li
+{
+	padding-top: 4px;	
+}
+
+img.banner
+{
+	margin-bottom: 5px;	
+}
+
+	/* indexphp */
+
+div#greyproductbar
+{
+/*	background-image: url("https://s3.amazonaws.com/static.globalclassroom.us/greyproductmenu/greybar.jpg"); */
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	width: 900px;
+	margin: 15px 0 5px 0;
+	text-align: center;
+}
+
+img.greyproductbar_img1
+{
+
+}
+
+img.greyproductbar_img2
+{
+	padding-left: 230px;
+}
+
+div#threeimgmarketing
+{
+	text-align: center;
+}
+
+img#threeimgmarketing_middle
+{
+	margin: 0 15px;
+}
+
+div#sitemapgradient
+{
+	margin: 15px 0;
+	padding: 10px;
+	background: #DDD;
+	background: -moz-linear-gradient(top, #CCC, #FFF);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CCC), color-stop(1, #FFF));
+	/* gradient for IE */
+	filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#CCC', EndColorStr='#FFF', GradientType=0);
+	-moz-border-radius: 10px 10px 0 0;
+	-webkit-border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
+}
+
+table#sitemapnav
+{
+	margin: auto;
+	width: 800px;
+}
+
+table#sitemapnav ul
+{
+	list-style-type: none;
+	margin-left: 0px;
+}
+
+table#sitemapnav td
+{
+	line-height: 1.5em;
+	color: #666;
+}
+
+table#sitemapnav a
+{
+	color: #777;
+}
+
+li#sitemapnav-loginlink a
+{
+	color: #336699;
+}
+
+	/* _integrationphp */
+
+div#integration
+{
+	text-align: center;
+}
+
+div#integration li
+{
+	padding: 3px;
+	display: inline;
+}
+
+	/* _footerphp */
+	
+div.footer
+{
+	border-top: solid 1px #DDD;
+	padding-top: 5px;
+	margin: 20px 0 10px 0;
+	text-align: center;
+	font-size: .87em;
+}
+
+	/* layout_dynamicphp */
+
+div.dynamic_content
+{
+	width: 600px;
+	margin: 5px 20px 0 0;
+}
+
+div.dynamic_content p
+{
+	margin: 0px 0 15px 0;
+}
+
+div.dynamic_content-column
+{
+	width: 250px;
+	float: left;
+}
+
+div.dynamic_content-column_left
+{
+	width: 340px;
+	padding-right: 10px;
+	float: left;
+}
+
+div.side_content a.sidenav_link: active
+{
+	text-decoration: strong;	
+}
+
+div.side-nav_block
+{
+        background-color: #ccccff;
+        border: solid 1px #999999;
+        padding: 5px;
+        margin-right: 5px;
+        -moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+div.side-contact_block
+{
+        background-color: #dddddd;
+        border: solid 1px #999999;
+        padding: 5px;
+        margin-right: 5px;
+        -moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+div.side-features_block
+{
+        background-color: #336699;
+        border: solid 1px #003366;
+        color: #ffffff;
+        padding: 5px;
+        margin-right: 5px;
+        -moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+div.page_title
+{
+	color: #336699;
+	margin: 15px 0 5px 0;
+	min-width: 300px;
+	max-width: 580px;
+	padding-bottom: 5px;
+	border-bottom: solid 3px #336699;
+}
+
+table.dynamic_table
+{
+	width: 900px;	
+}
+
+table.dynamic_table td
+{
+	vertical-align: top;
+}
+
+td.dynamicpage_rightcolumn
+{
+	width: 30%;
+        padding-left: 15px;
+        border-left: 1px solid #E1E1E1;
+}
+
+td.dynamicpage_rightcolumn ul.reseller_ul
+{
+	margin-left: 0px;
+	list-style-type: none;
+	line-height: 1.45em;
+}
+
+.featured_image
+{
+	float: left;
+	padding: 0 10px 0 0;
+}
+
+img.side_logo
+{
+	margin-bottom: 5px;
+	max-width: 180px;
+}
+
+td.dynamicpage_icons
+{
+	padding-top: 20px;
+}
+
+	/* iconsphp */
+	
+div.icons
+{
+	text-align: center;
+    border-top: 1px solid #E1E1E1;
+}	
+	
+div.icons .nav_logo
+{
+	margin: 10px;
+}
+
+	/** resellerApplicationSuccess.php **/
+
+div#reseller_header
+{
+	text-align: center;
+}
+
+div#reseller_header img.banner
+{
+}
+
+table#reseller_form
+{
+	margin: auto;
+	width: 65%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+table#reseller_form tbody
+{
+	margin: auto;
+}
+
+table#reseller_form td
+{
+	vertical-align: top;
+}
+
+table#reseller_form td.symfonyFormLabel
+{
+	text-align: left;
+}
+
+table#reseller_form td.symfonyFormInput
+{
+	text-align: right;
+}
+
+table#reseller_form td.symfonyFormError
+{
+	text-align: center;
+	color: red;
+}
+
+table#reseller_form td.section_label
+{
+	text-align: left;
+	height: 20px;
+}
+
+table#reseller_form select#type
+{
+	width: 185px;	
+}
+
+table#reseller_form td.submit
+{
+	text-align: center;
+}
+
+	/** teamSuccess **/
+	
+img.team_image
+{
+	float: left;
+	padding-right: 5px;
+}
+
+div.side_content ul
+{
+	margin-left: 0px;
+	list-style-type: none;
+	line-height: 1.45em;
+}
+
+        /** aboutusSuccess **/
+
+div.aboutus
+{
+    
+}
+
+div.collegestreetimg
+{
+    float: left;
+    margin-right: 20px;
+}
+
+	/** salesforce signup form **/
+
+div.google_contact_form
+{
+	background-color: #369;
+	border-bottom-left-radius: 10px 10px;
+	border-bottom-right-radius: 10px 10px;
+	border-top-left-radius: 10px 10px;
+	border-top-right-radius: 10px 10px;
+	color: white;
+	margin: auto;
+	padding: 10px;
+	vertical-align: top;
+        max-width: 235px;
+	min-width: 235px;
+}
+
+div.google_contact_form form
+{
+	text-align: right;
+}
+
+div.google_contact_form form label
+{
+	font-weight: bold;
+}
+
+div.google_contact_form p
+{
+    color: #FFFF00;
+    padding-left: 10px;
+}
+
+/** constant contact signup form **/
+
+div.constantcontact_signup_form
+{
+	text-align: center;
+	text-align: -webkit-center;
+}
+
+div.constantcontact_signup_form font#cc_label
+{
+	color: #900;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+	/** classic login form **/
+
+div#classic_login_form
+{
+	border-top: 0px;
+	margin-top: -11px;
+	padding: 10px 0px 0px;
+	width: 220px;
+}
+
+div#classic_login_form h2
+{
+	color: #93CB2A;
+	padding-bottom: 3px;
+	text-align: right;
+	width: auto;
+}
+
+div#classic_login_form label
+{
+	float: left;
+	width: 100px;
+}
+
+	/** requirementsSuccess **/
+
+table#downloads_table td
+{
+	margin: 5px 5px 5px 5px;
+}
+
+	/** eschoolSolutions pages **/
+	
+div.create_trial_link a
+{
+	color: white;
+}
+
+table.eschool_solutions_table div.main_content
+{
+	min-width: 600px;
+}
+
+table.eschool_solutions_table td.pricing_container
+{
+	min-width: 300px;
+	padding-left: 10px;
+}
+
+	/** eclassroomSolutions **/
+	
+table.eclassroom_solutions_table
+{
+	min-width: 600px;	
+}
+
+table.dynamic_table div#about
+{
+	float: left;
+	width: 50%;
+	height: 100px;
+	padding-top: 5px;
+}
+
+table.dynamic_table div#getting_started
+{
+	float: left;
+	width: 50%;
+	height: 100px;
+	padding-top: 5px;
+}
+
+table.dynamic_table div#pricing
+{
+	float: left;
+	width: 50%;
+	height: 100px;
+	padding-top: 5px;
+}
+	
+table.dynamic_table div#trial
+{
+	float: left;
+	width: 50%;
+	height: 100px;
+	padding-top: 5px;
+}
+
+td#eclassroom_solutions_rightcolumn
+{
+	width: 30%;	
+}
+	
+table.eclassroom_solutions_table div.side_content
+{
+	min-width: 300px;
+}
+
+table.eclassroom_solutions_table div.side_content ul
+{
+	margin-left: 0px;
+	list-style-type: none;
+	line-height: 1.45em;
+}
+
+table.eclassroom_solutions_table div#side_content_data
+{
+		width: 90%;
+		padding: 5px;
+}
+
+	/** login **/
+#eschool_search_box{float:left;width:250px;height:175px;margin-left:95px;padding-top:25px;text-align:center;}
+
+#act48_box{float:right;width:250px;height:175px;margin-right:95px;padding-top:15px;text-align:center;}
+
+table#login_table
+{
+	margin-top: 20px;
+}
+
+table#top_login_table td{
+    width: 45%;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: middle;
+    text-align:center;
+}
+
+table#login_table td
+{
+	width: 33%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+table#login_table td.eclassroom_label
+{
+	vertical-align: middle;
+	text-align: center;
+}
+
+table#login_table td.login_button_link
+{
+	text-align: center;
+	padding: 20px;
+}
+
+div#cirrus_search_label
+{
+	color: #099BCC;
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom: 13px;
+	text-align: center;
+    line-height: 25px;
+}
+
+	/** featured **/
+
+div.featured_image
+{
+	float: left;
+}
+
+div.side_logo_container
+{
+	text-align: center;
+}
+img.nav_logo
+{
+	max-width: 160px;
+}
+
+/** search page **/
+
+#eschoolSearchForm
+{
+	text-align: center;
+}
+
+table.contact_info td {
+    padding-right: 35px;
+    width: 180px;
+}
+
+td.team_member {
+    padding-top: 10px;
+    min-width: 200px;
+    width: 200px;
+}
+
+.friends_text {
+    color: #0066cc;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.groups_text {
+    color: #ff6600;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.elearning_text {
+    color: #66cc33;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.stratus_screenshot {
+    width: 600px;
+}
+
+h4.team_main_label {
+    padding-bottom: 2px;
+    border-bottom: 1px #DCDCDC solid;
+}
+
+div#LeadGen_ContactForm_67034_m1022601_Field_RadioGroup_6_cbcontainer
+{
+    font-size: 10px;
+}

@@ -1,0 +1,15 @@
+registrationSuccess:
+  has_layout: true
+  layout:     layout_index
+  
+  stylesheets: [-main.css]
+  
+feedbackSuccess:
+  has_layout: true
+  layout:     layout_index
+  
+  stylesheets: [-main.css]
+  
+loginSuccess:
+  has_layout: true
+  layout:     layout_moodlecontentonly
