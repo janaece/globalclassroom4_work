@@ -1022,8 +1022,8 @@ class GcrMhrUser extends GcrMhrTableRecord
         else
         {
             global $CFG;
-            $CFG->current_app->gcError('User from unknown host ' .
-                    $mhr_user->getApp()->getShortName() . ', cannot add.');
+	    $CFG->current_app->gcError('Eschool ' . $eschool->getShortName() . 
+                    ' cannot add user from unknown host ' . $this->app->getShortName());
         }    
     }
     public function refreshSessionTimeout ($ts = false)

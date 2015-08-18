@@ -232,7 +232,7 @@ class GcrInstitution extends BaseGcrInstitution
                         'name' => $eschool->getFullName(),
                         'institution' => gcr::maharaInstitutionName,
                         'ipaddress' => $mdl_mnet_host->ip_address,
-                        'portno' => 443,
+                        //'portno' => 443,
                         'publickey' => $mdl_mnet_host->public_key,
                         'publickeyexpires' => $mdl_mnet_host->public_key_expires,
                         'appname' => 'moodle');
@@ -1003,7 +1003,12 @@ class GcrInstitution extends BaseGcrInstitution
     }
     public function insertIntoMhrTable($tableName, $valueArray = array())
     {
-        return GcrDatabaseAccessPostgres::insertIntoTable($this, $tableName, $valueArray);
+	$this->beginTransaction();
+        // We need this to get past Mahara's triggers which are not schema aware.
+        $this->gcQuery('SET LOCAL search_path TO ' . $this->short_name);
+        $result = GcrDatabaseAccessPostgres::insertIntoTable($this, $tableName, $valueArray);
+        $this->commitTransaction();
+        return $result;
     }
     public function isCreated()
     {
@@ -1125,6 +1130,11 @@ class GcrInstitution extends BaseGcrInstitution
     }
     public function upsertIntoMhrTable($tableName, $valueAssocArray, $whereAssocArray)
     {
-        return GcrDatabaseAccessPostgres::upsertIntoTable($this, $tableName, $valueAssocArray, $whereAssocArray);
+	$this->beginTransaction();
+        // We need this to get past Mahara's triggers which are not schema aware.
+        $this->gcQuery('SET LOCAL search_path TO ' . $this->short_name);
+        $result = GcrDatabaseAccessPostgres::upsertIntoTable($this, $tableName, $valueAssocArray, $whereAssocArray);
+        $this->commitTransaction();
+        return $result;
     }
 }

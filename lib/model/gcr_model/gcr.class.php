@@ -36,7 +36,7 @@ class gcr
     const moodleMessageTypeName = 'moodlemessage';
     const defaultSupportUrl = 'https://globalclassroom.zendesk.com';
     const startDateForApplication = 1293840000; // Jan 1, 2011
-    const backgroundProcessCount = 4;
+    const backgroundProcessCount = 8;
     const updatePollingMin = 30000;
     const updatePollingMax = 60000;
 

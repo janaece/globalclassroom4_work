@@ -1,4 +1,6 @@
 <?php
+require_once(gcr::rootDir . 'lib/xmlrpc/lib/xmlrpc.inc');
+
 class GcrMdlWebServices
 {
     public static function deleteUser(GcrMhrUser $mhr_user_deleted)

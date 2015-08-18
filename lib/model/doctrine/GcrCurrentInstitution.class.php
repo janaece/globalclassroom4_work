@@ -99,6 +99,18 @@ class GcrCurrentInstitution extends GcrInstitution
     {
         return strpos($_SERVER['REQUEST_URI'], '/eschool/error') !== false;
     }
+    public function getTemporarySchemaName()
+    {
+        global $db;
+        $sql = 'SELECT nspname FROM pg_namespace WHERE oid = pg_my_temp_schema()';
+        $temp_schema = $db->Execute($sql);
+	$key = $temp_schema->fields['nspname'];
+        if (isset($key))
+        {
+            return $key;
+        }
+        return false;
+    }
     public function checkExternalPlatformCookie()
     {
         if (!$this->isLoggedIn())
