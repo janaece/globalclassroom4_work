@@ -151,7 +151,7 @@ class olsa_soapclient extends SoapClient{
 
 				//Force SSLv3 to workaround Openssl 1.0.1 issue
 				//See https://bugs.launchpad.net/ubuntu/+source/curl/+bug/595415
-				curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+				//curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 
 				//Setup Proxy Connection
 
@@ -356,7 +356,7 @@ class olsa_soapclient extends SoapClient{
 
 						//Force SSLv3 to workaround Openssl 1.0.1 issue
 						//See https://bugs.launchpad.net/ubuntu/+source/curl/+bug/595415
-						curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+						//curl_setopt($ch, CURLOPT_SSLVERSION, 3);
 
 						if (!empty($CFG->proxyhost)) {
 							// SOCKS supported in PHP5 only

@@ -1,0 +1,24 @@
+# Files to intentionally ignore for project tracking
+*~
+*.swp
+/tags
+/TAGS
+/cscope.*
+/.patches/
+/.idea/
+/nbproject/
+CVS
+.DS_Store
+/.settings/
+/.project
+/.buildpath
+/.cache
+phpunit.xml
+/cache/
+/debug/
+/log/
+/templateDump/
+gcupdate
+/vendor/symfony
+/lib/gcr.class.php
+/config/databases.yml

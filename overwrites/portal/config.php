@@ -44,6 +44,8 @@ if (!defined('GC_SYMFONY_LOADED'))
 if(isset($argv[2]))
 {
     $shortname = $argv[2];
+array_shift($argv);
+array_shift($argv);
     
     if ((defined('GC_SYMFONY_LOADED') && GC_SYMFONY_LOADED) == false)
     {
@@ -137,7 +139,8 @@ else
         // Additional Settings
 	$cfg->productionmode = true;
         $cfg->pathtoclam = '/usr/bin/clamscan';
-
+        //$cfg->usersuniquebyusername = true;
+        $cfg->log_file = gcr::moodledataDir . '/log/error.log';
         // closing php tag intentionally omitted to prevent whitespace issues
     }
 }
