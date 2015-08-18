@@ -1003,13 +1003,15 @@ class GcrInstitution extends BaseGcrInstitution
     }
     public function insertIntoMhrTable($tableName, $valueArray = array())
     {
-	$this->beginTransaction();
+//  changed by Mohan per Ron's email.
+//	return GcrDatabaseAccessPostgres::insertIntoTable($this, $tableName, $valueArray);
+		$this->beginTransaction();
         // We need this to get past Mahara's triggers which are not schema aware.
         $this->gcQuery('SET LOCAL search_path TO ' . $this->short_name);
         $result = GcrDatabaseAccessPostgres::insertIntoTable($this, $tableName, $valueArray);
         $this->commitTransaction();
         return $result;
-    }
+	}
     public function isCreated()
     {
         return GcrDatabaseAccessPostgres::schemaExists($this);
@@ -1130,11 +1132,13 @@ class GcrInstitution extends BaseGcrInstitution
     }
     public function upsertIntoMhrTable($tableName, $valueAssocArray, $whereAssocArray)
     {
-	$this->beginTransaction();
+//  Changed by Mohan following Ron's email
+//	return GcrDatabaseAccessPostgres::upsertIntoTable($this, $tableName, $valueAssocArray, $whereAssocArray);
+		$this->beginTransaction();
         // We need this to get past Mahara's triggers which are not schema aware.
         $this->gcQuery('SET LOCAL search_path TO ' . $this->short_name);
         $result = GcrDatabaseAccessPostgres::upsertIntoTable($this, $tableName, $valueAssocArray, $whereAssocArray);
         $this->commitTransaction();
         return $result;
-    }
+	}
 }

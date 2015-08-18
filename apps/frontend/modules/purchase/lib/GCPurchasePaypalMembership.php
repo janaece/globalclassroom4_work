@@ -26,6 +26,7 @@ class GCPurchasePaypalMembership extends GCPurchasePaypalRecurring
                 $this->amount = $cost;
             }
         }
+		//echo "mem amt =".$this->amount."=";
     }
     public function setGCFee($fee = null)
     {

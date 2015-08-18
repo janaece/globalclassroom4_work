@@ -22,7 +22,10 @@ class GcrUserSymfonyHeaderType extends GcrSymfonyHeaderType
             <li><a href="'. $this->institution->getAppUrl() .'" accesskey="h">Dashboard</a></li>
             <li><a href="'. $this->institution->getAppUrl() .'view" accesskey="v">Pages</a></li>
             <li><a href="'. $this->institution->getAppUrl() .'group/mygroups.php">Groups</a></li>
-            <li><a href="'. $this->institution->getAppUrl() .'artefact/courses">Courses</a></li>';
+			<li><a href="'. $this->current_app->getUrl() .'/course/subscriptions">Subscriptions</a></li>
+			<li><a href="'. $this->current_app->getUrl() .'/course/view">Courses</a></li>
+			<li><a href="'. $this->current_app->getUrl() .'/course/certifications">Certifications</a></li>
+			';
             $content .= '</ul></div><div id="sub-nav"></div>';
         }
         return $content;

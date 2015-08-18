@@ -23,8 +23,9 @@ class GcrCourseListModeEschool extends GcrCourseListMode
     public function getMdlCourses()
     {
         $mdl_courses = array();
-        if (GcrEschoolTable::authorizeEschoolAccess($this->object))
-        {
+		// removed course authorization
+        //if (GcrEschoolTable::authorizeEschoolAccess($this->object))
+        //{
             $params = $this->course_list->getParameters();
             $mdl_courses = $this->object->getMdlCourses(false, $params['search_string'], $params['category_id']);
             if ($params['category_id'])
@@ -35,7 +36,7 @@ class GcrCourseListModeEschool extends GcrCourseListMode
                     $mdl_courses[] = $course_collection->getRepresentativeCourse()->getObject(); 
                 }
             }
-        }
+        //}
         return $mdl_courses;
     }
 }

@@ -58,13 +58,13 @@ var $gc_course_viewer =
             return false;
         });
         var gc_course_element = jQuery('#gc_course_id');
-        if (gc_course_element.val() != '')
+        /*if (gc_course_element.val() != '')
         {
             // With a single course, open the details immediately.
             var list_item = jQuery('.gc_course_list_item_container');  
             course_list.openCourseDetail(list_item);
             gc_course_element.val('');
-        }
+        }*/
         
     },
     openCourseDetail: function(list_item)
@@ -74,14 +74,19 @@ var $gc_course_viewer =
         course_item_id = course_item_id.split("_");
         var eschool_id = course_item_id[2];
         var course_id = course_item_id[3];
+        var paid_flag = course_item_id[4];
         jQuery.post("/course/getHTMLCourseSummary", {eschool_id: eschool_id, course_id: course_id}, function (course_data)
         {
             $gc_course_detail.course_id = course_id;
             $gc_course_detail.eschool_id = eschool_id;
             $gc_course_detail.course_icon_src = course_icon_src;
             $gc_course_detail.course_data = course_data;
+            $gc_course_detail.paid_flag = paid_flag;
             jQuery.colorbox({html: $gc_course_detail.buildCourseDetailHtml(),
                             fixed: true,
+                            closeButton: false,
+							close: "Go Back",
+							//close: "<button id='go_back'>Go Back</button>",
                             width: '80%',
                             height: '80%'});
             $gc_course_detail.setSelectedCourseId(course_id);

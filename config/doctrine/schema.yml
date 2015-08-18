@@ -1507,3 +1507,241 @@ GcrWantsUrl:
       notnull: true
       default: ''
       primary: false
+GcrProducts:
+  connection: doctrine
+  tableName: gcr_products
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+      sequence: gcr_products_id
+    product_type_id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    institution_short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    catalog_short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    platform_short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    full_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    description:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    long_description:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    icon:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    pricing_html:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    cost:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    status:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '1'
+      primary: false
+    archive:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    sponsor_id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    created_date:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    expiry_no_of_days:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    network_id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: '0'
+      primary: false	  
+    last_updated_date:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+GcrInstitutionProductOrders:
+  connection: doctrine
+  tableName: gcr_institution_product_orders
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      primary: true
+      sequence: gcr_institution_product_orders_id
+    user_id:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    institution_short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    product_short_name:
+      type: string()
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: ''
+      primary: false
+    register_flag:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    paid_flag:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    paid_amt:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+      primary: false
+    deleted_flag:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false	  
+    start_date:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: ''
+      primary: false
+    orig_start_date:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: ''
+      primary: false
+    expiry_date:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: ''
+      primary: false
+    renewal_attempts:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: true
+      default: '0'
+      primary: false
+    created_on:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: '0'
+      primary: false
+    updated_on:
+      type: integer(8)
+      fixed: false
+      unsigned: false
+      notnull: false
+      default: ''
+      primary: false	  

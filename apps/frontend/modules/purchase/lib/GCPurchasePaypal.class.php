@@ -31,6 +31,7 @@ class GCPurchasePaypal extends GCPurchase
         $this->initializePaypalCaller($this->cc, gcr::paypalSandbox);
 
         // Amount payement incl. taxes
+
         $this->cc->setTransactionTotal($this->amount);
 
         // A description for the transaction (we needed to limit this to 100 chars)
@@ -39,6 +40,7 @@ class GCPurchasePaypal extends GCPurchase
         {
             $purchase_description = substr($purchase_description, 0, 95) . '...';
         }
+		//echo "Desc=".$purchase_description;exit;
         $this->cc->setTransactionDescription($purchase_description);
         // Client information :
         $this->cc->setBillingFirstName($this->billing_data->getFirstName());
@@ -58,7 +60,7 @@ class GCPurchasePaypal extends GCPurchase
         // Do payment
         $result = $this->cc->chargeDirect($isRecurring);
         $this->error_string = $this->cc->getErrorString();
-        
+//echo $this->error_string;        
         if ($this->error_string)
         {
             $result_name = ($result) ? 'warning' : 'error';
@@ -66,7 +68,8 @@ class GCPurchasePaypal extends GCPurchase
             global $CFG;
             $CFG->current_app->gcError('Purchase type ' . $this->my_purchase->getPurchaseType() . ': ID ' . $this->my_purchase->getPurchaseTypeId() .
                 ": Paypal $result_name: " . $this->error_string);
-        }    
+        }
+		//$result = true;
         if ($result)
         {
             // set session var to prevent duplicate transactions via back button.

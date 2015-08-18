@@ -10,6 +10,7 @@ class GcrCourseList
     protected $end_index;
     protected $list_size;
     protected $course_list;
+    protected $courses_count;
     protected $include_disabled;
     protected $include_closed;
     protected $search_string;
@@ -17,6 +18,7 @@ class GcrCourseList
     protected $institution;
     protected $mode;
     protected $mode_id;
+    protected $lib_id;
     protected $visible;
     protected $represented_courses;
     const STUDENT_MODE = 'Student';
@@ -24,7 +26,7 @@ class GcrCourseList
     const ALL_COURSES_MODE = 'All';
     const ESCHOOL_MODE = 'Eschool';
     const COURSE_MODE = 'Course';
-    const DEFAULT_LIST_SIZE = 12;
+    const DEFAULT_LIST_SIZE = 100;
 
     public function __construct($params, $institution = false)
     {
@@ -58,7 +60,8 @@ class GcrCourseList
             'search_string' => false,
             'visible' => 1,
             'mode' => self::ALL_COURSES_MODE,
-            'mode_id' => -1
+            'mode_id' => -1,
+            'lib_id' => 0
         );
     }
     public function getParameters()
@@ -153,7 +156,9 @@ class GcrCourseList
     }
     protected function checkUserAccess(GcrMdlCourse $course)
     {
-        return GcrEschoolTable::authorizeCourseAccess($course);
+		// removed course authorization
+        //return GcrEschoolTable::authorizeCourseAccess($course);
+        return true;
     }
     protected function addCourseToList(GcrMdlCourse $course)
     {
@@ -161,6 +166,7 @@ class GcrCourseList
         {
             $this->course_list[$course->getApp()->getShortName() . 
                 '-' . $course->getObject()->id] = $course;
+			$this->courses_count = $this->courses_count + 1;
         }
     }
     protected function filterCourseBySearchString($course)
@@ -212,10 +218,18 @@ class GcrCourseList
     {
         return $this->course_list;
     }
+    public function getCoursesCount()
+    {
+        return $this->courses_count;
+    }	
     public function getEndIndex()
     {
         return $this->end_index;
     }
+    public function getListSize()
+    {
+        return $this->list_size;
+    }	
     public function getIncludeClosed()
     {
         return $this->include_closed;

@@ -29,11 +29,12 @@ class GcrCourseListModeCourse extends GcrCourseListMode
     public function getMdlCourses()
     {
         $mdl_courses = array();
-        if (GcrEschoolTable::authorizeEschoolAccess($this->object))
-        {
+		// removed course authorization
+        //if (GcrEschoolTable::authorizeEschoolAccess($this->object))
+        //{
             $this->mdl_course->eschool = $this->object;
             $mdl_courses[] = $this->mdl_course;
-        }
+        //}
         return $mdl_courses;
     }
 }

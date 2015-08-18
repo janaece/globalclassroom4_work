@@ -1,3 +1,15 @@
+<div>
+<?php
+if(isset($paypal_error) && !empty($paypal_error)) {
+	?>
+	<br />
+	<br />
+	<h2 style="margin-left: 30px;color: #f00;"><?php echo $paypal_error; ?></h2>
+	<br />
+	<?php
+}
+?>
+</div>
 <table id="purchase">
     <tr>
         <td id="banner">

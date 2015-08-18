@@ -2,6 +2,7 @@ var $gc_course_detail =
 {
     course_icon_src: '',
     course_id: '',
+    paid_flag: '',
     course_data : '',
     selected_course_id: '',
     eschool_id: '',
@@ -42,14 +43,20 @@ var $gc_course_detail =
         {
             jQuery('.course_instance_admin_options').css('visibility', 'hidden');
         }
-        if (this.course_data.course_instances[this.selected_course_id].admin || 
-            this.course_data.course_instances[this.selected_course_id].enrolment_status)
-        {
-            jQuery('#course_detail_goto_button').html('Go To Course');
-        }
-        else
-        {
-            jQuery('#course_detail_goto_button').html('Enroll in Course');
+		if(this.paid_flag == 1) {
+			//console.log("ok");
+			jQuery('#course_detail_goto_button').remove();
+		} else {
+			//console.log("ok else");
+			if (this.course_data.course_instances[this.selected_course_id].admin || 
+				this.course_data.course_instances[this.selected_course_id].enrolment_status)
+			{
+				jQuery('#course_detail_goto_button').html('Go To Course');
+			}
+			else
+			{
+				jQuery('#course_detail_goto_button').html('Enroll in Course');
+			}
         }
     },
     sortArrayByKeys: function (inputarray) 
@@ -112,7 +119,7 @@ var $gc_course_detail =
             html += '</span>';
             html += '<span id="course_detail_gotocourse">';
                 html += '<button id="course_detail_goto_button">Go to Course</button>';
-            html += '</span>';
+            html += '</span><div id="cboxClose" style="float: left;">Go Back</div>';
             html += '<div class="clearfix"></div>';
             html += '<div id="course_detail_left_column">';
                 html += '<span class="gc_course_list_item_icon">';

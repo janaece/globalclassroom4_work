@@ -152,6 +152,21 @@ hr
   float: left;
 }
 
+/*#main-nav li a:link
+{
+color:#fff;
+}
+
+#main-nav li a:visited
+{
+color:#fff;
+}
+
+#main-nav li a:hover
+{
+color:#fff;
+} */
+
 #main-nav li.selected
 {
   background: -moz-linear-gradient(center bottom, #DDD 30%, #BBb 90%, #E1E1E1 100%);
