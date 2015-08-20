@@ -8,6 +8,7 @@
 {/if}
 {if $dashboardview}
     {$disable_edit_button = get_config('disableeditdashboardbutton')}
+	
     {if !$disable_edit_button}
     <div class="fr">
         <form action="{$WWWROOT}view/blocks.php?id={$viewid}" method="post">
