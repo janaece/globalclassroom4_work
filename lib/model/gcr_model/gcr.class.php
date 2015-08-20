@@ -16,7 +16,7 @@ class gcr
     const maharaDir = '/var/www/globalclassroom4/web/portal/';
     const moodledataDir = '/opt/moodledata/globalclassroom4/';
     const DBName = 'globalclassroom4';
-    const DBHostName = '54.210.39.35';
+    const DBHostName = '10.0.39.93';
     const DBPort = '5432';
     const globalDBAdminName = 'gc4_admin';
     const gchomeSchemaMoodle = 'startadmin';
