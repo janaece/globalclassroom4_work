@@ -4,7 +4,7 @@
 prod:
   .settings:
     no_script_name:         true
-    logging_enabled:        false
+    logging_enabled:        true
     error_reporting:        <?php echo (E_ALL & ~E_STRICT & ~E_DEPRECATED)."\n" ?>
 
 dev:
@@ -19,7 +19,7 @@ test:
   .settings:
     error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
     cache:                  false
-    web_debug:              false
+    web_debug:              true
     no_script_name:         false
     etag:                   false
 

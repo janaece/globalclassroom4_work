@@ -46,6 +46,7 @@
             </td>
         </tr>
     </table>
+
 {include file="header/navigation.tpl"}
 		<div class="cb"></div>
     </div>
@@ -64,13 +65,13 @@
     {/if}
                 </div>
 {/if}
+
                 <div id="main-column" class="main-column{if $SIDEBARS} main-column-narrow {if $SIDEBLOCKS.left}fl{else}fr{/if}{/if}">
                     {dynamic}{insert_messages}{/dynamic}
                     <div id="main-column-container">
 
 {if isset($PAGEHEADING)}                    <h1>{$PAGEHEADING}{if $PAGEHELPNAME}<span class="page-help-icon">{$PAGEHELPICON|safe}</span>{/if}</h1>
 {/if}
-
 {if $SUBPAGENAV}
   {if $SUBPAGETOP}{include file=$SUBPAGETOP}{/if}
 {* Tabs and beginning of page container for group info pages *}                        <ul class="in-page-tabs">

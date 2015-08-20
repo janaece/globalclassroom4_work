@@ -136,7 +136,7 @@ class dml_read_exception extends dml_exception {
         $this->error  = $error;
         $this->sql    = $sql;
         $this->params = $params;
-        $errorinfo = $error."\n".$sql."\n[".var_export($params, true).']';
+        echo $errorinfo = $error."\n".$sql."\n[".var_export($params, true).']';
         parent::__construct('dmlreadexception', NULL, $errorinfo);
     }
 }

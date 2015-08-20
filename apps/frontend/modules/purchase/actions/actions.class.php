@@ -154,6 +154,32 @@ class purchaseActions extends sfActions
             $this->redirect($CFG->current_app->getUrl());
         }
     }
+	
+	/**
+	* executes paypal subscription form
+	*
+	* @param sfWebRequest $request_object
+	* @param returns paypal form.
+	* gets values from get method
+	*/	
+    public function executeSubscriptionPurchase(sfWebRequest $request)
+    {
+        global $CFG;
+		$bill_cycle = "Month";
+		$this->params = $request->getGetParameters();
+		$this->form = new GcrPurchaseForm();
+		// sets institution, product short names and product type
+		$this->form->setDefaults(array( 'purchase_type' => 'subscription',
+										'purchase_type_id' => $this->params["institution"] . "~" . $this->params["type"],
+										'purchase_type_eschool_id' => $CFG->current_app->getShortName(),
+										'bill_cycle' => $bill_cycle,
+										'purchase_token' => GcrEschoolTable::generateRandomString()));
+		// set up object which hold info about the purchase item to display on form
+		$this->purchaseObject = new StdClass();
+		$this->hydratePurchaseObject($this->purchaseObject, 'subscription',
+				$this->params["institution"] . "~" . $this->params["type"], $CFG->current_app->getShortName(), $bill_cycle);
+		$this->getResponse()->setTitle('Subscription Purchase');
+    }	
     public function executeClassroom(sfWebRequest $request)
     {
         global $CFG;
@@ -251,13 +277,16 @@ class purchaseActions extends sfActions
         // authenticated, authorized, nonduplicate, and not an attack
         global $CFG;
         $form = $request->getPostParameters();
-        if ($form['purchase_type'] == 'course')
-        {
-            $this->authorizePurchaseOnEschool();
-        }
-        else
-        {
-            $this->authorizePurchaseOnInstitution();
+        if ($form['purchase_type'] != 'subscription')
+		{
+			if ($form['purchase_type'] == 'course')
+			{
+				$this->authorizePurchaseOnEschool();
+			}
+			else
+			{
+				$this->authorizePurchaseOnInstitution();
+			}
         }
         $current_user = $CFG->current_app->getCurrentUser();
         if ($_SESSION['lastPurchaseFormToken'] == $form['purchase_token'])
@@ -265,7 +294,7 @@ class purchaseActions extends sfActions
             $CFG->current_app->gcError('Purchase type ' . $form['purchase_type'] . ': ID ' . $form['purchase_type_id'] .
                     ': Attempted duplicate processing request.', 'purchaseattemptedduplicate');
         }
-        if ($form['purchase_type'] != 'sale')
+        if ($form['purchase_type'] != 'sale' || $form['purchase_type'] != 'subscription')
         {
             $this->verifyPurchaseTypeEschoolId($form['purchase_type_eschool_id']);
         }
@@ -284,7 +313,7 @@ class purchaseActions extends sfActions
             $CFG->current_app->gcError('Purchase type ' . $form['purchase_type'] . ': ID ' . $form['purchase_type_id'] .
                     ': Purchase class: ' . $purchase_classname  . ' does not exist', 'purchasetypeinvalid');
         }
-
+//echo "ok";exit;
         // Now that we have validated the request, we can proceed with processing
         $user = $current_user->getUserOnInstitution();
 
@@ -324,10 +353,13 @@ class purchaseActions extends sfActions
             $purchaseTransaction = new $purchase_classname($purchaseRecord->getId(), $billingData);
             if ($purchaseTransaction->attemptPaypalTransaction($form['purchase_token']))
             {
+				//echo "pass1-1";
                 // send user to receipt page
                 $this->redirect($CFG->current_app->getUrl() . '/purchase/receipt?purchaseId=' .
                         $purchaseTransaction->getPurchase()->getId());
-            }
+            } else{
+				$this->paypal_error = "Something went wrong with your credit card details, please verify your card details and proceed again.";
+			}
         }
         // Transaction failed for some reason(s). Repost the form, error messages will be displayed
         $this->purchaseObject = new StdClass();
@@ -426,9 +458,8 @@ class purchaseActions extends sfActions
     // This function attempts to save form values to the database if the values are valid
     protected function processForm($formFields, sfForm $form, $files = array())
     {
-  	$form->bind($formFields, $files);
-
-  	if ($form->isValid())
+		$form->bind($formFields, $files);
+		if ($form->isValid())
         {
           $record = $form->save();
           return $record;
@@ -496,70 +527,81 @@ class purchaseActions extends sfActions
     private function hydratePurchaseObject($object, $type, $type_id, $app_id, $bill_cycle = null)
     {
         // one case for each purchase type
-  	$this->purchaseObject->eschool = $app_id;
-  	if (!$app = GcrInstitutionTable::getApp($app_id))
-  	{
-            global $CFG;
-            $CFG->current_app->gcError('Schema ' . $app_id . ' does not exist.', 'gcdatabaseerror');
-  	}
-  	if ($type == 'course')
-  	{
-            if ($course = $app->getCourse($type_id))
-            {
-                $mdl_course = $course->getObject();
-                if ($mdl_enrol = $course->getMdlEnrol())
-                {
-                    $this->purchaseObject->description = 'Course: ' . $mdl_course->fullname .
-                            ' (' . $mdl_course->shortname . ')';
-                    if ($mdl_enrol->cost > 0)
-                    {
-                        $this->purchaseObject->cost = $mdl_enrol->cost;
-                    }
-                    else if ($enrolCost = $app->getConfigVar('enrol_cost'))
-                    {
-                        $this->purchaseObject->cost = $enrolCost;
-                    }
-                }
-            }
-  	}
-  	else if ($type == 'eschool')
-  	{
-            $this->purchaseObject->description = 'eSchool Activation: ' . $app->getFullName() . ' (' . $app->getShortName() . ')';
+		$this->purchaseObject->eschool = $app_id;
+		if (!$app = GcrInstitutionTable::getApp($app_id))
+		{
+				global $CFG;
+				$CFG->current_app->gcError('Schema ' . $app_id . ' does not exist.', 'gcdatabaseerror');
+		}
+		if ($type == 'course')
+		{
+				if ($course = $app->getCourse($type_id))
+				{
+					$mdl_course = $course->getObject();
+					if ($mdl_enrol = $course->getMdlEnrol())
+					{
+						$this->purchaseObject->description = 'Course: ' . $mdl_course->fullname .
+								' (' . $mdl_course->shortname . ')';
+						if ($mdl_enrol->cost > 0)
+						{
+							$this->purchaseObject->cost = $mdl_enrol->cost;
+						}
+						else if ($enrolCost = $app->getConfigVar('enrol_cost'))
+						{
+							$this->purchaseObject->cost = $enrolCost;
+						}
+					}
+				}
+		}
+		else if ($type == 'eschool')
+		{
+				$this->purchaseObject->description = 'eSchool Activation: ' . $app->getFullName() . ' (' . $app->getShortName() . ')';
 
-            if ($cost = $app->getConfigVar('gc_eschool_cost_' . strtolower($bill_cycle)))
-            {
-                $this->purchaseObject->cost = $cost;
-                $this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
-            }
-  	}
-  	else if ($type == 'classroom' || $type == 'classroom_membership')
-  	{
-            $this->purchaseObject->description = 'eClassroom';
-            $this->purchaseObject->description .= ($type == 'membership') ? ' Membership ' : '';
-            $this->purchaseObject->description .= ' on ' . $app->getFullName();
-            if ($cost = $app->getConfigVar('gc_classroom_cost_' . strtolower($bill_cycle)))
-            {
-                $this->purchaseObject->cost = $cost;
-                $this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
-            }
-  	}
-        else if ($type == 'membership')
-        {
-            $this->purchaseObject->description = 'Membership on ' . $app->getFullName();
-            if ($cost = $app->getConfigVar('gc_membership_cost_' . strtolower($bill_cycle)))
-            {
-                $this->purchaseObject->cost = $cost;
-                $this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
-            }
-        }
-  	else if ($type == 'sale')
-  	{
-            if ($purchase_item = Doctrine::getTable('GcrPurchaseItem')->find($type_id))
-            {
-                $this->purchaseObject->description = $purchase_item->getDescription();
-                $this->purchaseObject->cost = $purchase_item->getAmount();
-            }
-  	}
+				if ($cost = $app->getConfigVar('gc_eschool_cost_' . strtolower($bill_cycle)))
+				{
+					$this->purchaseObject->cost = $cost;
+					$this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
+				}
+		}
+		else if ($type == 'classroom' || $type == 'classroom_membership')
+		{
+				$this->purchaseObject->description = 'eClassroom';
+				$this->purchaseObject->description .= ($type == 'membership') ? ' Membership ' : '';
+				$this->purchaseObject->description .= ' on ' . $app->getFullName();
+				if ($cost = $app->getConfigVar('gc_classroom_cost_' . strtolower($bill_cycle)))
+				{
+					$this->purchaseObject->cost = $cost;
+					$this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
+				}
+		}
+		else if ($type == 'membership')
+		{
+			$this->purchaseObject->description = 'Membership on ' . $app->getFullName();
+			if ($cost = $app->getConfigVar('gc_membership_cost_' . strtolower($bill_cycle)))
+			{
+				$this->purchaseObject->cost = $cost;
+				$this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';
+			}
+		}
+		// subscription
+		else if ($type == 'subscription')
+		{
+			$type_id_arr = explode("~", $type_id);
+			$product_details = GcrProductsTable::getProductDetails($type_id_arr[0], $type_id_arr[1], $app_id);
+			foreach($product_details as $product) {
+				$this->purchaseObject->description = 'Subscription for - ' . $product->getFullName();
+				$this->purchaseObject->cost = $product->getCost();
+				$this->purchaseObject->bill_cycle = $bill_cycle . 'ly Subscription';				
+			}			
+		}
+		else if ($type == 'sale')
+		{
+				if ($purchase_item = Doctrine::getTable('GcrPurchaseItem')->find($type_id))
+				{
+					$this->purchaseObject->description = $purchase_item->getDescription();
+					$this->purchaseObject->cost = $purchase_item->getAmount();
+				}
+		}
     }
     protected function verifyPurchaseTypeEschoolId($short_name)
     {
