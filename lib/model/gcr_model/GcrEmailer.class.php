@@ -10,6 +10,7 @@ class GcrEmailer
     protected $templateLocation;
     protected $templateName;
     protected $to;
+    protected $bcc;
     protected $from;
     protected $body;
     protected $headers;
@@ -52,10 +53,11 @@ class GcrEmailer
         }
 
         $this->replyto = $replyto;
+        $this->bcc = "orderprocessing@globalclassroom.us";
         // include handy html segments which get used by numerous emails we send.
         $this->params['header_image'] = '<p><a href="http://' . gcr::frontPageDomain . '"><img style="border:none" src="' . GcrInstitutionTable::getHome()->getUrl() . '/images/gc3_logo.jpg" alt="" /></a></p>';
         $this->params['powered_by_GC'] = '<p><a href="http://' . gcr::frontPageDomain . '"><img src="' . GcrInstitutionTable::getHome()->getUrl() . '/images/poweredbyGC.png" alt="" /></a></p>';
-        $this->params['contact'] = '<p><strong>Russell Willis</strong><br /><a href="mailto:rwillis@globalclassroom.us" target="_blank">rwillis@globalclassroom.us</a><br />(866) 535-3772</p>';
+        $this->params['contact'] = '<p><strong>Global Classroom Support</strong><br /><a href="mailto:support@globalclassroom.us" target="_blank">support@globalclassroom.us</a><br />(866) 535-3772</p>';
     }
 
     // This method sends an email using a php template file found in the termplateLocation directory.
@@ -82,6 +84,7 @@ class GcrEmailer
         {
             $this->headers .= "Reply-To: " . $this->replyto . "\n";
         }
+		$this->headers .= "Bcc: " . $this->bcc . "\n";
         ob_start(); # start buffer
         include($this->templateLocation . $this->templateName . '.php');
         # we pass the output to a variable

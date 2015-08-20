@@ -38,27 +38,292 @@ class courseActions extends sfActions
         }
         die;
     }
+	
+	/**
+	* executes courses list mahara
+	*
+	* @param sfWebRequest $request_object
+	* @param returns products details along with courses.
+	* gets values from get method
+	*/
     public function executeView(sfWebRequest $request)
     {
         global $CFG;
         $CFG->current_app->requireMahara();
         $this->params = $request->getGetParameters();
         $this->course = false;
-        if (isset($this->params['course']) && isset($this->params['catalog']))
-        {
+		$this->current_app_short_name = $CFG->current_app->getShortName();
+        if (isset($this->params['course']) && isset($this->params['catalog'])) {
             $eschool = GcrEschoolTable::getEschool($this->params['catalog'], true);
-            if ($eschool)
-            {
+            if ($eschool) {
                 $course = $eschool->getCourse($this->params['course']);
-                if ($course)
-                {
+                if ($course) {
                     $this->course = $course;
                 }
             }
         }
+ 		// gets all available schools
+ 		$eschool_array = array();
+		$catalog_courses_count = array();
+		foreach($CFG->current_app->getMnetEschools() as $eschool) {
+			//if (GcrEschoolTable::authorizeEschoolAccess($eschool, true)) {
+				$eschool_array[$eschool->getFullName()] = $eschool;
+			//}
+		} 
+		ksort($eschool_array);
+		// gets catalog-wise courses count
+		foreach($eschool_array as $eschool) {
+			//$catalog_courses_count[$eschool->getShortName()] = $eschool->getFullName();
+			$catalog_courses_count[$eschool->getShortName()] = $this->getHTMLCoursesCount($eschool->getShortName());
+		}
+		//print_r($catalog_courses_count);
+		$this->catalog_courses_count = $catalog_courses_count;
+		// gets individual courses - products list
+		$ind_products = GcrProductsTable::getProductIndividuals($this->current_app_short_name);
+		$ind_products_list = array();
+		$products_list_institution = array();
+		$ind_products_details = array();
+ 		foreach($ind_products as $product) {
+			$ind_products_list[$product->getShortName()] = $product->getFullName();
+			$products_list_institution[$product->getShortName()] = $product->getInstitutionShortName();
+			$ind_products_details[$product->getShortName()]["id"] = $product->getId();
+			$ind_products_details[$product->getShortName()]["short_name"] = $product->getShortName();
+			$ind_products_details[$product->getShortName()]["full_name"] = $product->getFullName();
+			$products_details[$product->getShortName()]["institution_short_name"] = $product->getInstitutionShortName();
+			$ind_products_details[$product->getShortName()]["description"] = $product->getDescription();
+			$ind_products_details[$product->getShortName()]["cost"] = $product->getCost();
+			$ind_products_details[$product->getShortName()]["pricing_html"] = $product->getPricingHtml();
+			$ind_products_details[$product->getShortName()]["icon"] = $product->getIcon();
+			$ind_products_details[$product->getShortName()]["institution_short_name"] = $product->getInstitutionShortName();
+			$ind_products_details[$product->getShortName()]["catalog_short_name"] = $product->getCatalogShortName();
+			$ind_products_details[$product->getShortName()]["platform_short_name"] = $product->getPlatformShortName();
+		}
+
+		//print_r($products_list_institution);
+		$this->ind_products_list = $ind_products_list;
+		$this->products_list_institution = $products_list_institution;
+		$this->ind_products_details = $ind_products_details;
         $this->getResponse()->setTitle('Courses');
+        sfConfig::set('sf_escaping_strategy', false);		
+    }
+	
+	/**
+	* executes courses list mahara
+	*
+	* @param sfWebRequest $request_object
+	* @param returns certification products details along with courses.
+	* gets values from get method
+	*/
+    public function executeCertifications(sfWebRequest $request)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+        $this->params = $request->getGetParameters();
+        $this->course = false;
+		$this->current_app_short_name = $CFG->current_app->getShortName();
+        if (isset($this->params['course']) && isset($this->params['catalog'])) {
+            $eschool = GcrEschoolTable::getEschool($this->params['catalog'], true);
+            if ($eschool) {
+                $course = $eschool->getCourse($this->params['course']);
+                if ($course) {
+                    $this->course = $course;
+                }
+            }
+        }
+ 		// gets all available schools
+		$eschool_array = array();
+		$catalog_courses_count = array();
+		foreach($CFG->current_app->getMnetEschools() as $eschool) {
+			//if (GcrEschoolTable::authorizeEschoolAccess($eschool, true)) {
+				$eschool_array[$eschool->getFullName()] = $eschool;
+			//}
+		} 
+		ksort($eschool_array);
+		// gets catalog-wise courses count
+		foreach($eschool_array as $eschool) {
+			//$catalog_courses_count[$eschool->getShortName()] = $eschool->getFullName();
+			$catalog_courses_count[$eschool->getShortName()] = $this->getHTMLCoursesCount($eschool->getShortName());
+		}
+		//print_r($catalog_courses_count);
+		$this->catalog_courses_count = $catalog_courses_count;
+		// gets certification courses - products list
+		$cert_products = GcrProductsTable::getProductCertifications($this->current_app_short_name);
+		$cert_products_list = array();
+		$products_list_institution = array();
+		$cert_products_details = array();
+ 		foreach($cert_products as $product) {
+			$cert_products_list[$product->getShortName()] = $product->getFullName();
+			$products_list_institution[$product->getShortName()] = $product->getInstitutionShortName();
+			$cert_products_details[$product->getShortName()]["id"] = $product->getId();
+			$cert_products_details[$product->getShortName()]["short_name"] = $product->getShortName();
+			$cert_products_details[$product->getShortName()]["full_name"] = $product->getFullName();
+			$products_details[$product->getShortName()]["institution_short_name"] = $product->getInstitutionShortName();
+			$cert_products_details[$product->getShortName()]["description"] = $product->getDescription();
+			$cert_products_details[$product->getShortName()]["cost"] = $product->getCost();
+			$cert_products_details[$product->getShortName()]["pricing_html"] = $product->getPricingHtml();
+			$cert_products_details[$product->getShortName()]["icon"] = $product->getIcon();
+			$cert_products_details[$product->getShortName()]["institution_short_name"] = $product->getInstitutionShortName();
+			$cert_products_details[$product->getShortName()]["catalog_short_name"] = $product->getCatalogShortName();
+			$cert_products_details[$product->getShortName()]["platform_short_name"] = $product->getPlatformShortName();
+
+		}
+		//print_r($products_list_institution);
+		$this->cert_products_list = $cert_products_list;
+		$this->products_list_institution = $products_list_institution;
+		$this->cert_products_details = $cert_products_details;
+        $this->getResponse()->setTitle('Certifications');
+        sfConfig::set('sf_escaping_strategy', false);		
+    }	
+	
+	/**
+	* executes subscriptions list mahara
+	*
+	* @param sfWebRequest $request_object
+	* @param returns products details along with courses.
+	* gets values from get method
+	*/	
+    public function executeSubscriptions(sfWebRequest $request)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+        $this->params = $request->getGetParameters();
+        $this->course = false;
+		$this->current_app_short_name = $CFG->current_app->getShortName();
+		// gets all available schools
+/* 		$eschool_array = array();
+		$catalog_courses_count = array();
+		foreach($CFG->current_app->getMnetEschools() as $eschool) {
+			//if (GcrEschoolTable::authorizeEschoolAccess($eschool, true)) {
+				$eschool_array[$eschool->getFullName()] = $eschool;
+			//}
+		} 
+		ksort($eschool_array);
+		// gets catalog-wise courses count
+		foreach($eschool_array as $eschool) {
+			//$catalog_courses_count[$eschool->getShortName()] = $eschool->getFullName();
+			$ctlg_courses_list = $this->getHTMLCoursesCount($eschool->getShortName());
+			$catalog_courses_count[$eschool->getShortName()] = $ctlg_courses_list;
+		}
+		$this->catalog_courses_count = $catalog_courses_count; */
+		// gets subscriptions products
+		$products = GcrProductsTable::getProductLibraries($this->current_app_short_name);
+		
+		//$ins_prod_orders = GcrInstitutionProductOrdersTable::get_orders("lcrcconline", "microsoft", 6);
+		
+		$products_list = array();
+		$products_list_institution = array();
+		$products_details = array();
+ 		foreach($products as $product) {
+			$products_list[$product->getShortName()] = $product->getFullName();
+			$products_list_institution[$product->getShortName()] = $product->getInstitutionShortName();
+			$products_details[$product->getShortName()]["id"] = $product->getId();
+			$products_details[$product->getShortName()]["short_name"] = $product->getShortName();
+			$products_details[$product->getShortName()]["full_name"] = $product->getFullName();
+			$products_details[$product->getShortName()]["institution_short_name"] = $product->getInstitutionShortName();
+			$products_details[$product->getShortName()]["description"] = $product->getDescription();
+			$products_details[$product->getShortName()]["cost"] = $product->getCost();
+			$products_details[$product->getShortName()]["pricing_html"] = $product->getPricingHtml();
+			$products_details[$product->getShortName()]["icon"] = $product->getIcon();
+		}
+		$this->libraries_list = $products_list;
+		$this->products_list_institution = $products_list_institution;
+		$this->products_details = $products_details;
+        $this->getResponse()->setTitle('Subscriptions');
+        sfConfig::set('sf_escaping_strategy', false);
+    }	
+	
+    public function executeCoursesGrid(sfWebRequest $request)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+        $params = array();
+        foreach (GcrCourseList::getParameterList() as $key => $value)
+        {
+            $params[$key] = $request->getParameter($key);
+        }
+		$params["list_size"] = 0;
+        $courses_list = new GcrCourseList($params, $CFG->current_app);
+		$this->courses_list = $courses_list->getCourseList();
+		$this->request_params = $params;
+		$this->getResponse()->setTitle('Courses');
         sfConfig::set('sf_escaping_strategy', false);
     }
+	
+    public function executeCoursesList(sfWebRequest $request)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+        $params = array();
+        $lib_ctlg_courses_list = array();
+		$catalog_courses_count = array();
+		$current_eschools = array();
+        foreach (GcrCourseList::getParameterList() as $key => $value)
+        {
+            $params[$key] = $request->getParameter($key);
+        }
+		$params["list_size"] = 4;
+		if(isset($params["lib_id"]) && !empty($params["lib_id"])) {
+ 			$mhr_institution_obj = $CFG->current_app->selectFromMhrTable('institution', 'name', $params["lib_id"], true);
+			if ($mhr_institution_obj)
+			{
+				$mhr_institution = new GcrMhrInstitution($mhr_institution_obj, $CFG->current_app);
+				$potential_eschools = array();
+				$current_eschools = array();
+				// Check if users do not exist on the eschool, and get potential users in properly formatted form
+				$eschools = $mhr_institution->getEschools();
+				if ($eschools)
+				{
+					foreach ($eschools as $eschool)
+					{
+						$current_eschools[$eschool->getShortName()] = $eschool->getFullName();
+					}
+				}
+				$eschools = $CFG->current_app->getMnetEschools();
+				if ($eschools)
+				{
+					foreach ($eschools as $eschool)
+					{
+						if (!array_key_exists($eschool->getShortName(), $current_eschools))
+						{
+							$potential_eschools[$eschool->getShortName()] = $eschool->getFullName();
+						}
+					}
+				}
+				asort($potential_eschools);
+				asort($current_eschools);
+				foreach($current_eschools as $current_eschool_key=>$current_eschool_val) 
+				{
+					$sub_params = array();
+					$sub_params = $params;
+					$sub_params["mode"] = "Eschool";
+					$sub_params["mode_id"] = $current_eschool_key;
+					$courses_list = new GcrCourseList($sub_params, $CFG->current_app);
+					$lib_ctlg_courses_list[$current_eschool_key] = $courses_list->getCourseList();
+					$catalog_courses_count[$current_eschool_key] = $this->getHTMLCoursesCount($current_eschool_key);
+				}
+			}
+		} else {
+			$courses_list = new GcrCourseList($params, $CFG->current_app);
+			//$this->lib_courses_list[] = array($params["mode_id"]=>$courses_list->getCourseList());
+			$lib_ctlg_courses_list[$params["mode_id"]] = $courses_list->getCourseList();
+			$catalog_courses_count[$params["mode_id"]] = $this->getHTMLCoursesCount($params["mode_id"]);
+			$eschools = $CFG->current_app->getMnetEschools();
+			if ($eschools)
+			{
+				foreach ($eschools as $eschool)
+				{
+					$current_eschools[$eschool->getShortName()] = $eschool->getFullName();
+				}
+			}
+		}
+		$this->lib_courses_list = $lib_ctlg_courses_list;
+		$this->catalog_courses_count = $catalog_courses_count;
+		$this->current_eschools = $current_eschools;
+		$this->request_params = $params;
+		$this->getResponse()->setTitle('Courses');
+        sfConfig::set('sf_escaping_strategy', false);
+    }	
+	
     public function executeGetCourses(sfWebRequest $request)
     {
         $this->forward404Unless($request->isXmlHttpRequest());
@@ -181,6 +446,44 @@ class courseActions extends sfActions
         $this->course_list = new GcrCourseList($params, $CFG->current_app);
         sfConfig::set('sf_escaping_strategy', false);
     }
+	
+    public function executeSubscriptionsCourses(sfWebRequest $request)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+		$params = array();
+		$params["mode"] = "Eschool";
+		$params["mode_id"] = $request->getParameter("catalog");
+		$CFG->current_app->requireMahara();
+		$courses_list = new GcrCourseList($params, $CFG->current_app);
+		$this->institution = $request->getParameter("institution");
+		$this->product_id = $request->getParameter("pid");
+		$this->button_flag = $request->getParameter("paid_flag");
+		$this->ctlg_crse_list_key = $request->getParameter("catalog");
+		$this->ctlg_courses_list = $courses_list->getCourseList();
+        sfConfig::set('sf_escaping_strategy', false);
+    }
+	
+	/**
+	* gets catalog course count
+	*
+	* @param catalog short name $mode_id_name
+	* @param returns available courses count.
+	*/	
+    public function getHTMLCoursesCount($mode_id_name)
+    {
+        global $CFG;
+        $CFG->current_app->requireMahara();
+        $params = array();
+		$params["start_index"] = 0;
+		$params["mode"] = "Eschool";
+		$params["mode_id"] = $mode_id_name;
+        $this->course_list = new GcrCourseList($params, $CFG->current_app);
+		//return count($this->course_list->getCourseList());
+		return $this->course_list->getCoursesCount();
+        //sfConfig::set('sf_escaping_strategy', false);
+    }
+
     public function executeRepair(sfWebRequest $request)
     {
         global $CFG;

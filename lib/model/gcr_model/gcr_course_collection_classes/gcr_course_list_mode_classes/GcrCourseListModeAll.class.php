@@ -37,11 +37,12 @@ class GcrCourseListModeAll extends GcrCourseListMode
     }
     public function getMdlCourses(GcrEschool $eschool)
     {
-        if (GcrEschoolTable::authorizeEschoolAccess($eschool))
-        {
+		// removed course authorization
+        //if (GcrEschoolTable::authorizeEschoolAccess($eschool))
+        //{
             $params = $this->course_list->getParameters();
             return $eschool->getMdlCourses(false, $params['search_string'], $params['category_id']);
-        }
+        //}
         return array();
     }
 }

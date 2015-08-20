@@ -76,27 +76,13 @@ function mahara_navigation()
                 array('href'=>"$wwwroot/group/mygroups.php"));
         $content .= html_writer::end_tag('a');
         $content .= html_writer::end_tag('li');
-		
-		//Subscriptions link
-        $content .= html_writer::start_tag('li');
-        $content .= html_writer::nonempty_tag('a', 'Subscriptions',
-                array('href'=> $CFG->current_app->getUrl()."/course/subscriptions"));
-        $content .= html_writer::end_tag('a');
-        $content .= html_writer::end_tag('li');		
 
         //Courses link
         $content .= html_writer::start_tag('li');
         $content .= html_writer::nonempty_tag('a', 'Courses',
-                array('href'=> $CFG->current_app->getUrl()."/course/view"));
+                array('href'=>"$wwwroot/artefact/courses"));
         $content .= html_writer::end_tag('a');
         $content .= html_writer::end_tag('li');
-		
-		//Certifications link
-        $content .= html_writer::start_tag('li');
-        $content .= html_writer::nonempty_tag('a', 'Certifications',
-                array('href'=> $CFG->current_app->getUrl()."/course/certifications"));
-        $content .= html_writer::end_tag('a');
-        $content .= html_writer::end_tag('li');		
 
         $role_manager = $CFG->current_app->getCurrentUser()->getRoleManager();
         

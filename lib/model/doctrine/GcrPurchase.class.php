@@ -96,6 +96,10 @@ class GcrPurchase extends BaseGcrPurchase
         {
             return 'Membership on eSchool: ' . $product->getFullName() . ' (' . $product->getShortName() . ')';
         }
+        else if ($this->isSubscription())
+        {
+            return 'Subscription on: ' . $product->getFullName() . ' (' . $product->getShortName() . ')';
+        }		
         else if ($this->isSale())
         {
             if ($purchase_item = Doctrine::getTable('GcrPurchaseItem')->find($this->purchase_type_id))
@@ -261,6 +265,10 @@ class GcrPurchase extends BaseGcrPurchase
     {
         return ($this->purchase_type == 'classroom' || $this->purchase_type == 'classroom_manual');
     }
+    public function isSubscription()
+    {
+        return ($this->purchase_type == 'subscription');
+    }	
     public function isSale()
     {
         return ($this->purchase_type == 'sale' || $this->purchase_type == 'sale_manual');
@@ -281,6 +289,7 @@ class GcrPurchase extends BaseGcrPurchase
     {
         return ($this->purchase_type == 'eschool' || 
                 $this->purchase_type == 'classroom' ||
+                $this->purchase_type == 'subscription' ||
                 $this->purchase_type == 'membership');
     }
     // Is the product being sold to a user on a different platform?

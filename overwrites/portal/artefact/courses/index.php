@@ -8,7 +8,6 @@ define('SECTION_PAGE', 'index');
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/init.php');
 global $CFG;
-// this line redirects to the courses link
 redirect($CFG->current_app->getUrl() . '/course/view');
 require_once('pieforms/pieform.php');
 safe_require('artefact', 'courses');

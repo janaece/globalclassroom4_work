@@ -269,7 +269,6 @@ class GcrMhrUser extends GcrMhrTableRecord
         {
             $mhr_institution = $this->app->selectFromMhrTable('institution', 'name', gcr::maharaInstitutionName, true);
         }
-
         $params = array('usr' => $this->obj->id,
                         'institution' => $mhr_institution->name,
                         'ctime' => date('Y-m-d H:i:s', time()),
@@ -288,6 +287,27 @@ class GcrMhrUser extends GcrMhrTableRecord
 
         return $usr_institution;
     }
+	
+    public function addMhrInstitutionSubscription ($mhr_institution_name = "", $change_auth_instance = false)
+    {
+        if ($mhr_institution_name)
+        {
+			$params = array('usr' => $this->obj->id,
+							'institution' => $mhr_institution_name,
+							'ctime' => date('Y-m-d H:i:s', time()),
+							'studentid' => '');
+			$usr_institution = $this->app->insertIntoMhrTable('usr_institution', $params);
+			if ($change_auth_instance)
+			{
+				$mhr_auth_instance = $this->app->getAuthInstanceForMhrInstitution($mhr_institution_name);
+				if ($this->obj->authinstance != $mhr_auth_instance->id)
+				{
+					$this->app->updateMhrTable('usr', array('authinstance' => $mhr_auth_instance->id), array('id' => $this->obj->id));
+				}
+			}
+			return true;
+		}
+    }	
 
     public function getMhrUsrInstitutionRecords ($mhr_institution = false)
     {
@@ -304,6 +324,17 @@ class GcrMhrUser extends GcrMhrTableRecord
 
         return $this->app->gcQuery($sql, $params, $select_one_record);
     }
+	
+	// this function checks whether the user already linked to the institution or not
+    public function checkMhrUsrInstitutionRecord ($mhr_institution = false)
+    {
+        $sql = 'select * from ' . $this->app->getShortName() . '.mhr_usr_institution where usr = ?';
+        $params = array($this->obj->id);
+        $select_one_record = true;
+		$sql .= ' and institution = ?';
+		$params[] = $mhr_institution;
+        return $this->app->gcQuery($sql, $params, $select_one_record);
+    }	
 
     public function createChatSession ()
     {

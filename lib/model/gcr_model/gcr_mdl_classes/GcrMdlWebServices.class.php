@@ -1,4 +1,5 @@
 <?php
+// added by Mohan following Ron's email for fixing xmlrpc
 require_once(gcr::rootDir . 'lib/xmlrpc/lib/xmlrpc.inc');
 
 class GcrMdlWebServices

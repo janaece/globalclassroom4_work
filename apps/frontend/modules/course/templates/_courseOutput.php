@@ -29,7 +29,7 @@ if ($cost)
 
 
 ?>
-<div class="gc_course_list_item col2">
+<div class="gc_course_list_item col2">sample text 123
     <?php
     if ($meta_data)
     {
@@ -40,7 +40,7 @@ if ($cost)
         <div class="gc_course_list_item_header">
             <div class="gc_course_list_item_title gc_course_list_item_container_element ">
                 <a title="<?php print $mdl_course->fullname ?>" href="">
-                    <?php print $fullname; ?>
+                    <?php print $fullname."=test"; ?>
                 </a>
             </div>
         </div>

@@ -48,7 +48,7 @@
     }
     ?>
     <?php $CFG->current_app->printHeader(); ?>
-    <div id="messages"><?php echo $CFG->current_app->getConfigVar('gc_eschool_message'); ?></div>
+    <?php /* <div id="messages"><?php echo $CFG->current_app->getConfigVar('gc_eschool_message'); ?></div> */ ?>
     <?php echo $sf_content ?>
     <?php $CFG->current_app->printFooter(); ?>
 

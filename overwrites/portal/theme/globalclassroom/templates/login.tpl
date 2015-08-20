@@ -24,7 +24,7 @@
             </div>
         </td>
         <td>
-            <div id="registerinfo_container">
+            <div id="reigisterinfo_container">
                 <div id="welcometoyour">Welcome to your</div>
                 <br />
                 SOCIAL NETWORK FOR EDUCATION

@@ -221,11 +221,13 @@
 	/// @deprecated
 	$GLOBALS['xmlrpc_backslash']=chr(92).chr(92);
 
+    // OVERWRITE 1: enable decoding of <nil>
 	// set to TRUE to enable correct decoding of <NIL/> and <EX:NIL/> values
-	$GLOBALS['xmlrpc_null_extension']=false;
+	$GLOBALS['xmlrpc_null_extension']=true;
 
 	// set to TRUE to enable encoding of php NULL values to <EX:NIL/> instead of <NIL/>
-	$GLOBALS['xmlrpc_null_apache_encoding']=false;
+	$GLOBALS['xmlrpc_null_apache_encoding']=true;
+    // end OVERWRITE 1
 
 	// used to store state during parsing
 	// quick explanation of components:
@@ -1585,6 +1587,11 @@
 
 			if($method == 'https')
 			{
+                                // OVERWRITE 1: Insert
+                                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+                                // END OVERWRITE 1
+
 				// set cert file
 				if($cert)
 				{
@@ -1596,15 +1603,19 @@
 					curl_setopt($curl, CURLOPT_SSLCERTPASSWD, $certpass);
 				}
 				// whether to verify remote host's cert
-				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verifypeer);
+				//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->verifypeer);
 				// set ca certificates file/dir
 				if($cacert)
 				{
-					curl_setopt($curl, CURLOPT_CAINFO, $cacert);
+                                        //OVERWRITE 2: Delete
+					//curl_setopt($curl, CURLOPT_CAINFO, $cacert);
+                                        // END OVERWRITE 2
 				}
 				if($cacertdir)
 				{
-					curl_setopt($curl, CURLOPT_CAPATH, $cacertdir);
+                                        // OVERWRITE 3: Delete
+					//curl_setopt($curl, CURLOPT_CAPATH, $cacertdir);
+                                        // END OVERWRITE 3
 				}
 				// set key file (shall we catch errors in case CURLOPT_SSLKEY undefined ?)
 				if($key)
@@ -1617,7 +1628,9 @@
 					curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $keypass);
 				}
 				// whether to verify cert's common name (CN); 0 for no, 1 to verify that it exists, and 2 to verify that it matches the hostname used
-				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->verifyhost);
+                                // OVERWRITE 4: Delete
+				//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->verifyhost);
+                                // END OVERWRITE 4
 			}
 
 			// proxy info
